@@ -1,0 +1,20 @@
+{
+  "editor.formatOnSave": false,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "server/data": true,
+    "server/uploads": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/package-lock.json": true,
+    "server/data": true
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["className=\"([^\"]*)", "([a-zA-Z0-9\-:\[\]\/\.%]+)"]
+  ],
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "emmet.includeLanguages": { "javascript": "javascriptreact" }
+}
