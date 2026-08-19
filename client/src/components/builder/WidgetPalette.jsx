@@ -11,10 +11,7 @@ import {
 } from 'lucide-react'
 
 /* Groups ka order — sabse kaam ka pehle */
-const GROUP_ORDER = [
-  'Sabse Upar', 'Main Content', 'Bharosa Banane Ke Liye',
-  'Photo aur Video', 'Sampark', 'Upar aur Neeche', 'Chhoti Cheezein',
-]
+const GROUP_ORDER = ['Hero', 'Content', 'Social Proof', 'Media', 'Contact', 'Layout', 'Basic']
 
 const ICONS = {
   header: PanelTop, footer: PanelBottom, hero: Sparkles, announce: Megaphone,
@@ -82,7 +79,7 @@ export default function WidgetPalette() {
     <aside className="flex h-full w-[264px] shrink-0 flex-col overflow-hidden border-r border-white/10 bg-panel">
       {/* do tabs */}
       <div className="flex shrink-0 border-b border-white/10">
-        {[['structure', 'Pages', Layers], ['widgets', 'Cheezein', GridIcon]].map(([k, label, Icon]) => (
+        {[['structure', 'Pages', Layers], ['widgets', 'Widgets', GridIcon]].map(([k, label, Icon]) => (
           <button
             key={k}
             onClick={() => setTab(k)}
@@ -103,14 +100,14 @@ export default function WidgetPalette() {
         <>
           <div className="shrink-0 border-b border-white/10 p-3">
             <p className="mb-2.5 text-[11px] leading-relaxed text-slate-400">
-              Jo cheez website me chahiye, uspe <b className="text-slate-200">click</b> karo —
-              page ke neeche lag jayegi. Ya <b className="text-slate-200">uthake</b> jahan chahiye wahan chhodo.
+              <b className="text-slate-200">Click</b> karo — page ke neeche lag jayega.
+              Ya <b className="text-slate-200">drag</b> karke jahan chahiye wahan chhodo.
             </p>
             <div className="relative">
               <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
               <input
                 className="field !py-2 !pl-8 !text-xs"
-                placeholder="Dhoondo — jaise photo, review, price"
+                placeholder="Search widget"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
               />
@@ -132,7 +129,7 @@ export default function WidgetPalette() {
               /* shuruaat me sirf kaam ki cheezein */
               <>
                 <div className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                  Sabse zyada kaam aane wali
+                  Most used
                 </div>
                 <div className="grid gap-2">
                   {popular.map((w) => <WidgetCard key={w.key} w={w} />)}
@@ -142,7 +139,7 @@ export default function WidgetPalette() {
                   onClick={() => setShowAll(true)}
                   className="btn-ghost mt-3 w-full !py-2 !text-[11.5px]"
                 >
-                  Aur {all.length - popular.length} cheezein dekho
+                  Show all {all.length} widgets
                 </button>
               </>
             ) : (
@@ -152,7 +149,7 @@ export default function WidgetPalette() {
                   onClick={() => setShowAll(false)}
                   className="btn-ghost mb-3 w-full !py-1.5 !text-[11px]"
                 >
-                  Sirf kaam ki cheezein dikhao
+                  Show only most used
                 </button>
 
                 {keys.map((g) => {

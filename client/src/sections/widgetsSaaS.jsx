@@ -24,10 +24,10 @@ const dots = (color, size = 22) => ({
 
 /* =============================== ANNOUNCEMENT BAR =============================== */
 const announce = {
-  label: 'Upar ki Patti',
+  label: 'Announcement Bar',
   desc: 'Offer ya zaroori khabar',
   popular: false,
-  group: 'Upar aur Neeche',
+  group: 'Layout',
   defaults: { text: 'We just launched something new', linkText: 'Read the announcement', tone: 'dark', ctaLink: { kind: 'section', target: 's-contact' } },
   schema: [
     F.text('text', 'Message'), F.text('linkText', 'Link text'),
@@ -88,7 +88,7 @@ export const HERO_SAAS = {
           overflow: 'hidden',
           background: `linear-gradient(180deg, ${t.primary} 0%, ${hexA(t.primary, 0.72)} 45%, ${t.bg} 100%)`,
           color: '#fff',
-          padding: `${96 * t.density}px 0 ${88 * t.density}px`,
+          padding: `clamp(40px, 8.00cqw, ${96 * t.density}px) 0 clamp(37px, 7.33cqw, ${88 * t.density}px)`,
           textAlign: 'center',
         }}
       >
@@ -119,7 +119,7 @@ export const HERO_SAAS = {
   mockup: {
     name: 'Headline + app mockup',
     render: ({ p, t, biz, nav }) => (
-      <section style={{ position: 'relative', overflow: 'hidden', background: t.alt, color: t.text, padding: `${84 * t.density}px 0 0` }}>
+      <section style={{ position: 'relative', overflow: 'hidden', background: t.alt, color: t.text, padding: `clamp(38px, 7.00cqw, ${84 * t.density}px) 0 0` }}>
         <div style={{ position: 'absolute', inset: 0, ...dots(hexA(t.text, 0.07), 24) }} />
         <Wrap t={t} style={{ position: 'relative', textAlign: 'center', maxWidth: 860 }}>
           <span style={{ display: 'inline-block', background: hexA(t.primary, 0.1), color: t.primary, borderRadius: 999, padding: '6px 14px', fontFamily: t.bodyFont, fontSize: 12.5, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase' }}>
@@ -201,10 +201,10 @@ const SaaSLogo = ({ t, biz }) => (
 
 /* =============================== LOGO CLOUD =============================== */
 const logocloud = {
-  label: 'Logo ki Line',
+  label: 'Logo Cloud',
   desc: 'Client logo ek line me',
   popular: false,
-  group: 'Bharosa Banane Ke Liye',
+  group: 'Social Proof',
   defaults: {
     title: 'Trusted by modern teams',
     items: [{ label: 'NVIDIA' }, { label: 'INDEED' }, { label: 'ADYEN' }, { label: 'GILEAD' }, { label: 'SWIGGY' }, { label: 'VISMA' }],
@@ -251,10 +251,10 @@ const logocloud = {
 
 /* =============================== FEATURE SPLIT =============================== */
 const feature = {
-  label: 'Photo + Baat',
+  label: 'Feature Split',
   desc: 'Ek taraf photo, doosri taraf likha',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Platform',
     title: 'Built for the way your team actually works',

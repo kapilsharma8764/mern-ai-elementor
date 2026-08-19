@@ -11,7 +11,7 @@
     "smoke": "vite-node scripts/smoke.jsx",
     "test:elements": "vite-node scripts/elementcheck.jsx",
     "test:templates": "vite-node scripts/personalisecheck.jsx",
-    "test": "npm run smoke && npm run test:elements && npm run test:templates && npm run test:links && npm run test:design && npm run test:browser && npm run test:e2e && npm run test:e2e2",
+    "test": "npm run smoke && npm run test:elements && npm run test:templates && npm run test:links && npm run test:design && npm run test:responsive && npm run test:browser && npm run test:e2e && npm run test:e2e2",
     "test:links": "vite-node scripts/linkcheck.jsx",
     "test:design": "vite-node scripts/designcheck.jsx",
     "test:browser": "vite-node scripts/browsercheck.jsx",
@@ -22,7 +22,8 @@
     "prebuild": "npm run gen:fields",
     "test:sync": "vite-node scripts/syncheck.jsx",
     "seed:templates": "vite-node scripts/seed-templates.js",
-    "test:refresh": "vite-node scripts/refreshcheck.jsx"
+    "test:refresh": "vite-node scripts/refreshcheck.jsx",
+    "test:responsive": "vite-node scripts/responsivecheck.jsx"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
