@@ -150,8 +150,10 @@ export const HERO_VARIANTS = {
 
 /* =============================== MARQUEE =============================== */
 const marquee = {
-  label: 'Marquee Strip',
-  group: 'Content',
+  label: 'Chalti Patti',
+  desc: 'Text jo side se chalta rehta hai',
+  popular: false,
+  group: 'Main Content',
   defaults: { text: 'Design · Engineering · Automation · Support', repeat: 4, tone: 'primary' },
   schema: [F.text('text', 'Text'), F.num('repeat', 'Repeats', { min: 2, max: 8 }), F.sel('tone', 'Tone', ['primary', 'dark', 'alt', 'outline'])],
   variants: {
@@ -202,8 +204,10 @@ const marquee = {
 
 /* =============================== BENTO GRID =============================== */
 const bento = {
-  label: 'Bento Grid',
-  group: 'Content',
+  label: 'Boxes me Baatein',
+  desc: 'Chhote-bade box me khaasiyat',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Capabilities',
     title: 'Everything in one system',
@@ -283,8 +287,10 @@ const bento = {
 
 /* =============================== WORK / PORTFOLIO =============================== */
 const work = {
-  label: 'Featured Work',
-  group: 'Content',
+  label: 'Hamara Kaam',
+  desc: 'Ab tak kiye hue project',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Selected work',
     title: 'Featured Works',
@@ -353,8 +359,10 @@ const work = {
 
 /* =============================== BIG STATS =============================== */
 const bigstats = {
-  label: 'Big Numbers',
-  group: 'Content',
+  label: 'Bade Numbers',
+  desc: 'Bahut bade numbers, dhyan khinchne ko',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     items: [
       { value: '65', label: 'Completed projects' },
@@ -406,8 +414,10 @@ const bigstats = {
 
 /* =============================== PROCESS =============================== */
 const process = {
-  label: 'Process Steps',
-  group: 'Content',
+  label: 'Kaam Kaise Hota Hai',
+  desc: '1-2-3 karke tarika batao',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'How we work',
     title: 'From brief to build',

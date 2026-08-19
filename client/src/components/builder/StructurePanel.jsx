@@ -44,12 +44,12 @@ function SiteRow({ id, label, hint, Icon }) {
       <Icon size={14} className="shrink-0 text-brand-300/80" />
       <div className="min-w-0 flex-1">
         <div className="truncate text-[12px] font-semibold">{label}</div>
-        <div className="truncate text-[10px] text-slate-500">{hidden ? 'hataya hua' : hint}</div>
+        <div className="truncate text-[10px] text-slate-500">{hidden ? 'chhupa hua' : hint}</div>
       </div>
       <button
         onClick={(e) => { e.stopPropagation(); setStyle(id, 'hidden', !hidden) }}
         className="rounded p-1 text-slate-500 opacity-0 transition hover:bg-white/10 hover:text-white group-hover:opacity-100"
-        title={hidden ? 'Wapas dikhao' : 'Hatao'}
+        title={hidden ? 'Wapas dikhao' : 'Chhupa do'}
       >
         {hidden ? <EyeOff size={12} /> : <Eye size={12} />}
       </button>
@@ -67,7 +67,7 @@ function SectionList({ page }) {
   const setStyle = useBuilder((s) => s.setStyle)
 
   if (!page.blocks.length) {
-    return <p className="px-2 py-3 text-[11px] text-slate-500">Is page pe koi section nahi — canvas se add karo.</p>
+    return <p className="px-2 py-3 text-[11px] text-slate-500">Is page pe abhi kuch nahi. Left me "Cheezein" tab se koi cheez uthake yahan lao.</p>
   }
 
   return (
@@ -92,17 +92,17 @@ function SectionList({ page }) {
 
             <span className="flex shrink-0 items-center opacity-0 transition group-hover:opacity-100">
               <button className="rounded p-0.5 text-slate-500 hover:text-white disabled:opacity-30" disabled={i === 0}
-                onClick={(e) => { e.stopPropagation(); moveBlock(i, i - 1) }} title="Upar"><ArrowUp size={11} /></button>
+                onClick={(e) => { e.stopPropagation(); moveBlock(i, i - 1) }} title="Upar le jao"><ArrowUp size={11} /></button>
               <button className="rounded p-0.5 text-slate-500 hover:text-white disabled:opacity-30" disabled={i === page.blocks.length - 1}
-                onClick={(e) => { e.stopPropagation(); moveBlock(i, i + 1) }} title="Neeche"><ArrowDown size={11} /></button>
+                onClick={(e) => { e.stopPropagation(); moveBlock(i, i + 1) }} title="Neeche le jao"><ArrowDown size={11} /></button>
               <button className="rounded p-0.5 text-slate-500 hover:text-white"
-                onClick={(e) => { e.stopPropagation(); setStyle(b.id, 'hidden', !hidden) }} title={hidden ? 'Dikhao' : 'Chhupao'}>
+                onClick={(e) => { e.stopPropagation(); setStyle(b.id, 'hidden', !hidden) }} title={hidden ? 'Wapas dikhao' : 'Chhupa do'}>
                 {hidden ? <EyeOff size={11} /> : <Eye size={11} />}
               </button>
               <button className="rounded p-0.5 text-slate-500 hover:text-white"
-                onClick={(e) => { e.stopPropagation(); duplicateBlock(b.id) }} title="Copy"><Copy size={11} /></button>
+                onClick={(e) => { e.stopPropagation(); duplicateBlock(b.id) }} title="Copy banao"><Copy size={11} /></button>
               <button className="rounded p-0.5 text-rose-400/70 hover:text-rose-300"
-                onClick={(e) => { e.stopPropagation(); removeBlock(b.id) }} title="Delete"><Trash2 size={11} /></button>
+                onClick={(e) => { e.stopPropagation(); removeBlock(b.id) }} title="Hatao"><Trash2 size={11} /></button>
             </span>
           </div>
         )
@@ -128,7 +128,7 @@ function PageRow({ page, index, total }) {
         <button
           onClick={() => { setPage(page.id); setOpen(!open || !active) }}
           className="shrink-0 rounded p-0.5 text-slate-500 hover:text-white"
-          title="Sections dekho"
+          title="Is page ki cheezein dekho"
         >
           <ChevronRight size={13} className={`transition ${open && active ? 'rotate-90' : ''}`} />
         </button>
@@ -146,15 +146,15 @@ function PageRow({ page, index, total }) {
         ) : (
           <button onClick={() => { setPage(page.id); setOpen(true) }} className="min-w-0 flex-1 text-left">
             <span className="block truncate text-[12px] font-semibold">{page.name}</span>
-            <span className="block text-[10px] text-slate-500">{page.blocks.length} sections</span>
+            <span className="block text-[10px] text-slate-500">{page.blocks.length} cheezein</span>
           </button>
         )}
 
         <span className="flex shrink-0 items-center gap-0.5">
-          <button className="rounded p-1 text-slate-500 hover:text-white" title="Naam badlo"
+          <button className="rounded p-1 text-slate-500 hover:text-white" title="Page ka naam badlo"
             onClick={(e) => { e.stopPropagation(); setEditing(true) }}><Pencil size={11} /></button>
           {total > 1 ? (
-            <button className="rounded p-1 text-rose-400/70 hover:text-rose-300" title="Page delete"
+            <button className="rounded p-1 text-rose-400/70 hover:text-rose-300" title="Page hatao"
               onClick={(e) => { e.stopPropagation(); removePage(page.id) }}><Trash2 size={11} /></button>
           ) : null}
         </span>
@@ -182,7 +182,7 @@ export default function StructurePanel() {
     <div className="grid gap-3">
       {/* HEADER — sabse upar */}
       <div>
-        <div className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">Sab pages me upar</div>
+        <div className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">Har page me sabse upar</div>
         <SiteRow id="header" label="Header" hint="logo, menu, button" Icon={PanelTop} />
       </div>
 
@@ -204,7 +204,7 @@ export default function StructurePanel() {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') create(); if (e.key === 'Escape') setAdding(false) }}
-              placeholder="Page ka naam"
+              placeholder="Jaise: About, Contact"
               className="field !py-1.5 !text-[12px]"
             />
             <button className="rounded p-1.5 text-emerald-300 hover:bg-white/10" onClick={create}><Check size={14} /></button>
@@ -212,15 +212,15 @@ export default function StructurePanel() {
           </div>
         ) : (
           <button className="btn-ghost mt-1.5 w-full !py-1.5 !text-[11px]" onClick={() => setAdding(true)}>
-            <Plus size={13} /> Naya page
+            <Plus size={13} /> Naya page banao
           </button>
         )}
       </div>
 
       {/* FOOTER — sabse neeche */}
       <div>
-        <div className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">Sab pages me neeche</div>
-        <SiteRow id="footer" label="Footer" hint="contact, links, copyright" Icon={PanelBottom} />
+        <div className="mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500">Har page me sabse neeche</div>
+        <SiteRow id="footer" label="Footer" hint="contact, address, copyright" Icon={PanelBottom} />
       </div>
     </div>
   )

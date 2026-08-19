@@ -74,7 +74,7 @@ function LinkField({ value = {}, onChange }) {
       ) : null}
 
       {['tel', 'wa', 'mail'].includes(kind) ? (
-        <p className="px-0.5 text-[10px] text-slate-500">Contact step wale number/email se apne aap ban jayega.</p>
+        <p className="px-0.5 text-[10px] text-slate-500">Aapke diye number/email se apne aap ban jayega.</p>
       ) : null}
     </div>
   )
@@ -263,7 +263,7 @@ function ThemePanel() {
   return (
     <div className="grid gap-4 p-3.5">
       <div>
-        <div className="label">Colour palette</div>
+        <div className="label">Website ka rang</div>
         <div className="grid grid-cols-4 gap-2">
           {PALETTES.map((p) => (
             <button key={p.id} onClick={() => setTheme({ palette: p.id })} title={p.name}
@@ -274,33 +274,33 @@ function ThemePanel() {
       </div>
 
       <div>
-        <div className="label">Font pairing</div>
+        <div className="label">Likhawat ka style</div>
         <select className="field text-[13px]" value={th.font} onChange={(e) => setTheme({ font: e.target.value })}>
           {FONTS.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
         </select>
       </div>
 
-      <Row label="Corners">
+      <Row label="Kone">
         <select className="field !py-1.5 text-[12px]" value={th.radius} onChange={(e) => setTheme({ radius: e.target.value })}>
-          {['none', 'sm', 'md', 'lg', 'pill'].map((r) => <option key={r} value={r}>{r}</option>)}
+          {[['none','Seedhe'],['sm','Halke gol'],['md','Gol'],['lg','Zyada gol'],['pill','Poore gol']].map(([v,l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </Row>
-      <Row label="Spacing">
+      <Row label="Khali jagah">
         <select className="field !py-1.5 text-[12px]" value={th.density} onChange={(e) => setTheme({ density: e.target.value })}>
-          {['compact', 'normal', 'roomy'].map((r) => <option key={r} value={r}>{r}</option>)}
+          {[['compact','Kam'],['normal','Normal'],['roomy','Zyada']].map(([v,l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </Row>
-      <Row label="Width">
+      <Row label="Chaudai">
         <select className="field !py-1.5 text-[12px]" value={th.container} onChange={(e) => setTheme({ container: e.target.value })}>
-          {['narrow', 'normal', 'wide', 'full'].map((r) => <option key={r} value={r}>{r}</option>)}
+          {[['narrow','Patli'],['normal','Normal'],['wide','Chaudi'],['full','Poori screen']].map(([v,l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </Row>
-      <Row label="Heading size">
+      <Row label="Heading ka size">
         <Slider value={Math.round((th.headingScale ?? 1) * 100)} min={70} max={140} suffix="%" onChange={(v) => setTheme({ headingScale: v / 100 })} />
       </Row>
 
       <div>
-        <div className="label">Switch template look</div>
+        <div className="label">Doosra design lagao</div>
         <select className="field text-[13px]" value={templateId || ''} onChange={(e) => applyTemplateTheme(e.target.value)}>
           {TEMPLATES.map((t) => <option key={t.id} value={t.id}>{t.no ? `#${t.no} ` : ''}{t.name}</option>)}
         </select>
@@ -365,12 +365,12 @@ export default function Inspector() {
         <ResizeHandle width={width} setWidth={setWidth} />
         <div className="flex items-center gap-2 border-b border-white/10 px-3.5 py-3">
           <PaletteIcon size={15} className="text-brand-400" />
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">Site design</span>
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">Poori website ka look</span>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-16">
           <ThemePanel />
           <p className="px-3.5 pb-6 text-[11px] leading-relaxed text-slate-500">
-            Click any section on the canvas to edit its content, layout variant and spacing.
+            Beech me website me kisi bhi cheez pe click karo — uska content, design aur jagah yahan badal sakte ho.
           </p>
         </div>
       </aside>
@@ -410,7 +410,7 @@ export default function Inspector() {
       </div>
 
       <div className="flex border-b border-white/10">
-        {[['content', 'Content'], ['design', 'Design']].map(([k, l]) => (
+        {[['content', 'Likhai'], ['design', 'Design']].map(([k, l]) => (
           <button key={k} onClick={() => setTab(k)}
             className={`flex-1 py-2 text-[11px] font-bold uppercase tracking-wider transition ${tab === k ? 'border-b-2 border-brand-500 text-white' : 'text-slate-500 hover:text-slate-300'}`}>
             {l}
@@ -471,7 +471,7 @@ export default function Inspector() {
           <div className="grid gap-4">
             {variants.length > 1 ? (
               <div>
-                <div className="label">Layout variant</div>
+                <div className="label">Design chuno</div>
                 <div className="grid gap-1.5">
                   {variants.map(([key, v]) => (
                     <button key={key} onClick={() => setVariant(selectedId, key)}
@@ -487,27 +487,27 @@ export default function Inspector() {
 
             <div className="grid gap-2.5">
               <div className="label !mb-0">Spacing & size</div>
-              <Row label="Margin top"><Slider value={st.marginTop} min={-80} max={200} onChange={(v) => setStyle(selectedId, 'marginTop', v)} /></Row>
-              <Row label="Margin bottom"><Slider value={st.marginBottom} min={-80} max={200} onChange={(v) => setStyle(selectedId, 'marginBottom', v)} /></Row>
-              <Row label="Extra padding"><Slider value={st.paddingY} min={0} max={160} onChange={(v) => setStyle(selectedId, 'paddingY', v)} /></Row>
-              <Row label="Max width"><Slider value={st.maxWidth} min={0} max={1600} step={20} onChange={(v) => setStyle(selectedId, 'maxWidth', v)} /></Row>
-              <Row label="Text size"><Slider value={Math.round((st.fontScale ?? 1) * 100)} min={70} max={150} suffix="%" onChange={(v) => setStyle(selectedId, 'fontScale', v / 100)} /></Row>
+              <Row label="Upar jagah"><Slider value={st.marginTop} min={-80} max={200} onChange={(v) => setStyle(selectedId, 'marginTop', v)} /></Row>
+              <Row label="Neeche jagah"><Slider value={st.marginBottom} min={-80} max={200} onChange={(v) => setStyle(selectedId, 'marginBottom', v)} /></Row>
+              <Row label="Andar jagah"><Slider value={st.paddingY} min={0} max={160} onChange={(v) => setStyle(selectedId, 'paddingY', v)} /></Row>
+              <Row label="Chaudai"><Slider value={st.maxWidth} min={0} max={1600} step={20} onChange={(v) => setStyle(selectedId, 'maxWidth', v)} /></Row>
+              <Row label="Text ka size"><Slider value={Math.round((st.fontScale ?? 1) * 100)} min={70} max={150} suffix="%" onChange={(v) => setStyle(selectedId, 'fontScale', v / 100)} /></Row>
             </div>
 
             <div className="grid gap-2.5">
-              <div className="label !mb-0">Appearance</div>
-              <Row label="Align">
+              <div className="label !mb-0">Rang aur alignment</div>
+              <Row label="Text ki side">
                 <select className="field !py-1.5 text-[12px]" value={st.align} onChange={(e) => setStyle(selectedId, 'align', e.target.value)}>
-                  {['inherit', 'left', 'center', 'right'].map((a) => <option key={a} value={a}>{a}</option>)}
+                  {[['inherit','Jaisa hai'],['left','Baayin'],['center','Beech'],['right','Daayin']].map(([v,l]) => <option key={v} value={v}>{l}</option>)}
                 </select>
               </Row>
-              <Row label="Background">
+              <Row label="Peeche ka rang">
                 <div className="flex items-center gap-2">
                   <input type="color" className="h-8 w-10 cursor-pointer rounded border border-white/10 bg-transparent" value={st.bg || '#ffffff'} onChange={(e) => setStyle(selectedId, 'bg', e.target.value)} />
-                  <button className="btn-ghost !py-1 !text-[11px]" onClick={() => setStyle(selectedId, 'bg', '')}>Reset</button>
+                  <button className="btn-ghost !py-1 !text-[11px]" onClick={() => setStyle(selectedId, 'bg', '')}>Hatao</button>
                 </div>
               </Row>
-              <Row label="Text colour">
+              <Row label="Text ka rang">
                 <div className="flex items-center gap-2">
                   <input type="color" className="h-8 w-10 cursor-pointer rounded border border-white/10 bg-transparent" value={st.fg || '#111111'} onChange={(e) => setStyle(selectedId, 'fg', e.target.value)} />
                   <button className="btn-ghost !py-1 !text-[11px]" onClick={() => setStyle(selectedId, 'fg', '')}>Reset</button>
@@ -516,7 +516,7 @@ export default function Inspector() {
             </div>
 
             <button className="btn-ghost !text-[11px]" onClick={() => updateBlock(selectedId, { style: { marginTop: 0, marginBottom: 0, paddingY: 0, align: 'inherit', bg: '', fg: '', maxWidth: 0, hidden: false, fontScale: 1 } })}>
-              <RotateCcw size={13} /> Reset all styling
+              <RotateCcw size={13} /> Sab wapas pehle jaisa
             </button>
           </div>
         )}

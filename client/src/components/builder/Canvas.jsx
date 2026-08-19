@@ -41,7 +41,7 @@ function BlockFrame({ block, index, total, theme, business }) {
       <div className={`absolute -top-3 right-3 z-30 flex items-center gap-0.5 rounded-lg border border-white/10 bg-panel/95 px-1 py-1 shadow-soft backdrop-blur transition ${
         selected ? 'opacity-100' : 'pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100'
       }`}>
-        <span {...listeners} {...attributes} className="cursor-grab rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white active:cursor-grabbing" title="Drag to reorder">
+        <span {...listeners} {...attributes} className="cursor-grab rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white active:cursor-grabbing" title="Pakad ke upar-neeche karo">
           <GripVertical size={13} />
         </span>
         <span className="px-1.5 text-[11px] font-semibold text-slate-300">{w?.label || block.type}</span>
@@ -52,18 +52,18 @@ function BlockFrame({ block, index, total, theme, business }) {
         >
           <Pencil size={12} /> Edit
         </button>
-        <button className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30" disabled={index === 0} onClick={(e) => { e.stopPropagation(); moveBlock(index, index - 1) }} title="Move up"><ArrowUp size={13} /></button>
-        <button className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30" disabled={index === total - 1} onClick={(e) => { e.stopPropagation(); moveBlock(index, index + 1) }} title="Move down"><ArrowDown size={13} /></button>
+        <button className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30" disabled={index === 0} onClick={(e) => { e.stopPropagation(); moveBlock(index, index - 1) }} title="Upar le jao"><ArrowUp size={13} /></button>
+        <button className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30" disabled={index === total - 1} onClick={(e) => { e.stopPropagation(); moveBlock(index, index + 1) }} title="Neeche le jao"><ArrowDown size={13} /></button>
         <button className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white" onClick={(e) => { e.stopPropagation(); setStyle(block.id, 'hidden', !block.style.hidden) }} title={block.style.hidden ? 'Show' : 'Hide'}>
           {block.style.hidden ? <EyeOff size={13} /> : <Eye size={13} />}
         </button>
-        <button className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white" onClick={(e) => { e.stopPropagation(); duplicateBlock(block.id) }} title="Duplicate"><Copy size={13} /></button>
-        <button className="rounded p-1 text-rose-400 hover:bg-rose-500/20" onClick={(e) => { e.stopPropagation(); removeBlock(block.id) }} title="Delete"><Trash2 size={13} /></button>
+        <button className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white" onClick={(e) => { e.stopPropagation(); duplicateBlock(block.id) }} title="Copy banao"><Copy size={13} /></button>
+        <button className="rounded p-1 text-rose-400 hover:bg-rose-500/20" onClick={(e) => { e.stopPropagation(); removeBlock(block.id) }} title="Hatao"><Trash2 size={13} /></button>
       </div>
 
       {block.style.hidden ? (
         <div className="flex items-center justify-center gap-2 border border-dashed border-white/15 bg-white/[0.02] py-8 text-xs text-slate-500">
-          <EyeOff size={14} /> {w?.label} is hidden
+          <EyeOff size={14} /> {w?.label} chhupi hui hai
         </div>
       ) : (
         <>
@@ -75,7 +75,7 @@ function BlockFrame({ block, index, total, theme, business }) {
           <div
             {...listeners}
             {...attributes}
-            title="Section ko yahan se pakad ke upar-neeche karo"
+            title="Yahan se pakad ke upar-neeche karo"
             className="absolute inset-y-0 left-0 z-20 flex w-6 cursor-grab items-center justify-center opacity-0 transition group-hover:opacity-100 active:cursor-grabbing"
           >
             <span className="flex h-16 w-1.5 items-center justify-center rounded-full bg-brand-500/70 shadow-soft" />
@@ -137,7 +137,7 @@ function DropEnd() {
     <div ref={setNodeRef} className={`m-4 rounded-xl border-2 border-dashed p-8 text-center text-xs transition ${
       isOver ? 'border-brand-400 bg-brand-500/10 text-brand-200' : 'border-white/10 text-slate-500'
     }`}>
-      Drop a widget here to add it to the end of the page
+      Yahan chhodo — page ke aakhir me lag jayega
     </div>
   )
 }
@@ -165,12 +165,12 @@ function SectionSelect({ page }) {
         onChange={(e) => jump(e.target.value)}
         onClick={(e) => e.stopPropagation()}
       >
-        <option value="">Select section…</option>
+        <option value="">Kis cheez pe jaana hai?</option>
         {options.map((o) => (
           <option key={o.id} value={o.id}>{o.label}{o.hidden ? ' (hidden)' : ''}</option>
         ))}
       </select>
-      <span className="text-[11px] text-slate-500">{page.blocks.length} sections on “{page.name}”</span>
+      <span className="text-[11px] text-slate-500">{page.blocks.length} cheezein “{page.name}” page pe</span>
     </div>
   )
 }

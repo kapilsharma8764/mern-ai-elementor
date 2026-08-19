@@ -24,8 +24,10 @@ const dots = (color, size = 22) => ({
 
 /* =============================== ANNOUNCEMENT BAR =============================== */
 const announce = {
-  label: 'Announcement Bar',
-  group: 'Layout',
+  label: 'Upar ki Patti',
+  desc: 'Offer ya zaroori khabar',
+  popular: false,
+  group: 'Upar aur Neeche',
   defaults: { text: 'We just launched something new', linkText: 'Read the announcement', tone: 'dark', ctaLink: { kind: 'section', target: 's-contact' } },
   schema: [
     F.text('text', 'Message'), F.text('linkText', 'Link text'),
@@ -199,8 +201,10 @@ const SaaSLogo = ({ t, biz }) => (
 
 /* =============================== LOGO CLOUD =============================== */
 const logocloud = {
-  label: 'Logo Cloud',
-  group: 'Social proof',
+  label: 'Logo ki Line',
+  desc: 'Client logo ek line me',
+  popular: false,
+  group: 'Bharosa Banane Ke Liye',
   defaults: {
     title: 'Trusted by modern teams',
     items: [{ label: 'NVIDIA' }, { label: 'INDEED' }, { label: 'ADYEN' }, { label: 'GILEAD' }, { label: 'SWIGGY' }, { label: 'VISMA' }],
@@ -247,8 +251,10 @@ const logocloud = {
 
 /* =============================== FEATURE SPLIT =============================== */
 const feature = {
-  label: 'Feature Split',
-  group: 'Content',
+  label: 'Photo + Baat',
+  desc: 'Ek taraf photo, doosri taraf likha',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Platform',
     title: 'Built for the way your team actually works',

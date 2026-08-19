@@ -55,10 +55,11 @@ export const Logo = ({ t, biz, invert, style: override }) => {
   )
 
   return (
-    <div style={{
+    <div data-brand="logo" title="Logo — click karke badlo" style={{
       display: 'flex',
       alignItems: 'center',
       gap: h * 0.28,
+      cursor: 'pointer',
       flexDirection: ls.position === 'center' ? 'column' : 'row',
       textAlign: ls.position === 'center' ? 'center' : 'left',
       justifyContent: ls.position === 'center' ? 'center' : 'flex-start',
@@ -82,13 +83,17 @@ const Nav = ({ t, p, biz, nav, invert, gap = 26 }) => (
 )
 
 const header = {
-  label: 'Header',
-  group: 'Layout',
+  label: 'Upar ka Header',
+  desc: 'Logo, menu aur button',
+  popular: true,
+  group: 'Upar aur Neeche',
   defaults: {
     links: [
       { label: 'Home', link: { kind: 'section', target: 'top' } },
       { label: 'About', link: { kind: 'section', target: 's-about' } },
-      { label: 'Services', link: { kind: 'section', target: 's-services' } },
+      { label: 'Hamari Services',
+  desc: 'Aap kya kaam karte ho',
+  popular: true, link: { kind: 'section', target: 's-services' } },
       { label: 'Contact', link: { kind: 'section', target: 's-contact' } },
     ],
     cta: 'Get a Quote',
@@ -187,8 +192,10 @@ const header = {
 
 /* =============================== HERO / SLIDER =============================== */
 const hero = {
-  label: 'Hero / Front Slider',
-  group: 'Hero',
+  label: 'Website ka Banner',
+  desc: 'Sabse upar bada photo aur heading',
+  popular: true,
+  group: 'Sabse Upar',
   defaults: {
     eyebrow: 'Welcome',
     title: 'We build things that grow your business',
@@ -328,8 +335,10 @@ const hero = {
 
 /* =============================== ABOUT =============================== */
 const about = {
-  label: 'About Section',
-  group: 'Content',
+  label: 'Hamare Baare Mein',
+  desc: 'Company ki kahani',
+  popular: true,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'About us',
     title: 'Built on trust, delivered with care',
@@ -435,7 +444,7 @@ const about = {
 /* =============================== SERVICES =============================== */
 const services = {
   label: 'Services',
-  group: 'Content',
+  group: 'Main Content',
   defaults: {
     eyebrow: 'What we do',
     title: 'Services built around your goals',
@@ -563,8 +572,10 @@ const services = {
 
 /* =============================== PRODUCTS =============================== */
 const products = {
-  label: 'Product Information',
-  group: 'Content',
+  label: 'Products',
+  desc: 'Saman ki list, price ke saath',
+  popular: true,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Our products',
     title: 'Products people actually love',
@@ -666,8 +677,10 @@ const products = {
 
 /* =============================== TESTIMONIALS =============================== */
 const testimonials = {
-  label: 'Testimonials',
-  group: 'Social proof',
+  label: 'Customer ki Raay',
+  desc: 'Logon ke review aur tareef',
+  popular: true,
+  group: 'Bharosa Banane Ke Liye',
   defaults: {
     eyebrow: 'Testimonials',
     title: 'What our clients say',
@@ -767,8 +780,10 @@ const testimonials = {
 
 /* =============================== STATS =============================== */
 const stats = {
-  label: 'Stats',
-  group: 'Content',
+  label: 'Ginti / Numbers',
+  desc: '500+ customer, 15 saal',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     title: 'Numbers that matter',
     items: [
@@ -836,8 +851,10 @@ const stats = {
 
 /* =============================== INFORMATION =============================== */
 const info = {
-  label: 'Information',
-  group: 'Content',
+  label: 'Khaas Baatein',
+  desc: 'Point-by-point jaankari',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Why us',
     title: 'Information that helps you decide',
@@ -912,8 +929,10 @@ const info = {
 
 /* =============================== GRAPH + INFO =============================== */
 const chart = {
-  label: 'Graph & Information',
-  group: 'Content',
+  label: 'Graph',
+  desc: 'Growth chart ke saath jaankari',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Performance',
     title: 'Growth you can measure',
@@ -1026,8 +1045,10 @@ const Input = ({ t, ph, area }) => {
 }
 
 const contact = {
-  label: 'Contact / Enquiry Form',
-  group: 'Contact',
+  label: 'Contact Form',
+  desc: 'Customer message bhej sake',
+  popular: true,
+  group: 'Sampark',
   defaults: {
     eyebrow: 'Contact',
     title: 'Send us an enquiry',
@@ -1132,8 +1153,10 @@ const contact = {
 
 /* =============================== MAP =============================== */
 const map = {
-  label: 'Google Map',
-  group: 'Contact',
+  label: 'Location Map',
+  desc: 'Dukaan ya office kahan hai',
+  popular: false,
+  group: 'Sampark',
   defaults: { title: 'Find us', height: 420 },
   schema: [F.text('title', 'Title'), F.num('height', 'Height (px)', { min: 200, max: 800 })],
   variants: {
@@ -1178,8 +1201,10 @@ const map = {
 
 /* =============================== GALLERY =============================== */
 const gallery = {
-  label: 'Gallery',
-  group: 'Media',
+  label: 'Photo Gallery',
+  desc: 'Apne kaam ki photos',
+  popular: true,
+  group: 'Photo aur Video',
   defaults: { eyebrow: 'Gallery', title: 'A look at our work', items: [{}, {}, {}, {}, {}, {}] },
   schema: [F.text('eyebrow', 'Eyebrow'), F.text('title', 'Title'), F.list('items', 'Images', [F.img('image', 'Image'), F.text('caption', 'Caption')], 'Add image')],
   variants: {
@@ -1218,8 +1243,10 @@ const gallery = {
 
 /* =============================== TEAM =============================== */
 const team = {
-  label: 'Team',
-  group: 'Content',
+  label: 'Hamari Team',
+  desc: 'Team members ki photo aur naam',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Our team', title: 'The people behind the work',
     items: [
@@ -1275,8 +1302,10 @@ const team = {
 
 /* =============================== PRICING =============================== */
 const pricing = {
-  label: 'Pricing',
-  group: 'Content',
+  label: 'Price List',
+  desc: 'Package aur unke rate',
+  popular: true,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'Pricing', title: 'Simple, honest plans',
     items: [
@@ -1333,8 +1362,10 @@ const pricing = {
 
 /* =============================== FAQ =============================== */
 const faq = {
-  label: 'FAQ',
-  group: 'Content',
+  label: 'Common Sawal',
+  desc: 'Sawal aur jawab',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     eyebrow: 'FAQ', title: 'Questions, answered',
     items: [
@@ -1387,8 +1418,10 @@ const faq = {
 
 /* =============================== LOGOS =============================== */
 const logos = {
-  label: 'Client Logos',
-  group: 'Social proof',
+  label: 'Client ke Logo',
+  desc: 'Kin companies ke saath kaam kiya',
+  popular: false,
+  group: 'Bharosa Banane Ke Liye',
   defaults: { title: 'Trusted by teams across India', items: [{ label: 'NORTHLINE' }, { label: 'BLUECORE' }, { label: 'CRAFTLY' }, { label: 'VERTEX' }, { label: 'ORBIT' }] },
   schema: [F.text('title', 'Title'), F.list('items', 'Logos', [F.text('label', 'Name'), F.img('image', 'Logo image')], 'Add logo')],
   variants: {
@@ -1428,8 +1461,10 @@ const logos = {
 
 /* =============================== CTA =============================== */
 const cta = {
-  label: 'Call To Action',
-  group: 'Content',
+  label: 'Action Box',
+  desc: '"Abhi call karo" wala bada box',
+  popular: false,
+  group: 'Main Content',
   defaults: {
     title: 'Ready to start your project?', sub: 'Tell us what you need and get a free quote in 24 hours.',
     button: 'Talk to us', buttonLink: { kind: 'section', target: 's-contact' },
@@ -1488,8 +1523,10 @@ const cta = {
 
 /* =============================== NEWSLETTER =============================== */
 const newsletter = {
-  label: 'Newsletter',
-  group: 'Content',
+  label: 'Email Signup',
+  desc: 'Customer ka email lo',
+  popular: false,
+  group: 'Main Content',
   defaults: { title: 'Get updates in your inbox', sub: 'One useful email a month. No spam, ever.', button: 'Subscribe' },
   schema: [F.text('title', 'Title'), F.area('sub', 'Sub text'), F.text('button', 'Button')],
   variants: {
@@ -1528,7 +1565,9 @@ const newsletter = {
 /* =============================== BASIC WIDGETS =============================== */
 const heading = {
   label: 'Heading',
-  group: 'Basic',
+  desc: 'Bas ek moti line',
+  popular: false,
+  group: 'Chhoti Cheezein',
   defaults: { text: 'A section heading', level: 2, align: 'left' },
   schema: [F.text('text', 'Text'), F.sel('level', 'Level', [1, 2, 3, 4]), F.sel('align', 'Align', ['left', 'center', 'right'])],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1537,8 +1576,10 @@ const heading = {
 }
 
 const textBlock = {
-  label: 'Text',
-  group: 'Basic',
+  label: 'Likhai',
+  desc: 'Simple paragraph',
+  popular: false,
+  group: 'Chhoti Cheezein',
   defaults: { text: 'Write anything here. This block is great for paragraphs of copy, notices or long descriptions.', align: 'left', size: 16 },
   schema: [F.area('text', 'Text'), F.sel('align', 'Align', ['left', 'center', 'right']), F.num('size', 'Font size', { min: 12, max: 32 })],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1547,8 +1588,10 @@ const textBlock = {
 }
 
 const imageBlock = {
-  label: 'Image',
-  group: 'Basic',
+  label: 'Photo',
+  desc: 'Ek photo lagao',
+  popular: false,
+  group: 'Chhoti Cheezein',
   defaults: { image: '', ratio: '16/9', caption: '', full: false },
   schema: [F.img('image', 'Image'), F.sel('ratio', 'Aspect ratio', ['16/9', '4/3', '1/1', '3/4', '21/9']), F.text('caption', 'Caption'), F.bool('full', 'Full width')],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1561,7 +1604,9 @@ const imageBlock = {
 
 const buttonBlock = {
   label: 'Button',
-  group: 'Basic',
+  desc: 'Click karne wala button',
+  popular: false,
+  group: 'Chhoti Cheezein',
   defaults: { text: 'Click here', align: 'center', variant: 'solid', link: { kind: 'section', target: 's-contact' } },
   schema: [
     F.text('text', 'Text'), { key: 'link', label: 'Links to', type: 'link' },
@@ -1578,8 +1623,10 @@ const buttonBlock = {
 }
 
 const spacer = {
-  label: 'Spacer / Divider',
-  group: 'Basic',
+  label: 'Khali Jagah',
+  desc: 'Do cheezon ke beech gap ya line',
+  popular: false,
+  group: 'Chhoti Cheezein',
   defaults: { height: 60, line: true },
   schema: [F.num('height', 'Height (px)', { min: 0, max: 300 }), F.bool('line', 'Show divider line')],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1591,7 +1638,9 @@ const spacer = {
 
 const video = {
   label: 'Video',
-  group: 'Media',
+  desc: 'YouTube video lagao',
+  popular: false,
+  group: 'Photo aur Video',
   defaults: { title: 'Watch how it works', url: '' },
   schema: [F.text('title', 'Title'), F.text('url', 'Embed URL (YouTube embed link)')],
   variants: { boxed: { name: 'Boxed', render: ({ p, t, biz, nav }) => (
@@ -1609,8 +1658,10 @@ const video = {
 
 /* =============================== FOOTER =============================== */
 const footer = {
-  label: 'Footer',
-  group: 'Layout',
+  label: 'Neeche ka Footer',
+  desc: 'Contact, links aur copyright',
+  popular: true,
+  group: 'Upar aur Neeche',
   defaults: {
     about: 'We help businesses grow with design, engineering and honest advice.',
     cols: [

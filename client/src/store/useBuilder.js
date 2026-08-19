@@ -243,24 +243,66 @@ export const useBuilder = create((set, get) => ({
   /* ---------------- pages ---------------- */
   addPage(name) {
     get()._snap()
+    const title = (name || 'Naya Page').trim()
     const page = {
       id: uid(),
-      name: name || 'New Page',
-      slug: '/' + (name || 'new-page').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+      name: title,
+      slug: '/' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
       blocks: [makeBlock('heading'), makeBlock('text')],
     }
-    set((s) => ({ site: { ...s.site, pages: [...s.site.pages, page] }, currentPageId: page.id }))
+
+    set((s) => {
+      // Naya page banate hi header ke menu me uska link aa jaye —
+      // warna user ko alag se link jodna padta tha aur wo page
+      // website pe kahin se khulta hi nahi tha.
+      const header = { ...s.site.header, props: { ...s.site.header.props } }
+      const links = Array.isArray(header.props.links) ? [...header.props.links] : []
+      const already = links.some((l) => l.link?.kind === 'page' && l.link?.target === page.id)
+      if (!already) {
+        links.push({ label: title, link: { kind: 'page', target: page.id } })
+        header.props.links = links
+      }
+
+      return {
+        site: { ...s.site, header, pages: [...s.site.pages, page] },
+        currentPageId: page.id,
+      }
+    })
   },
   renamePage(id, name) {
     get()._snap()
-    set((s) => ({ site: { ...s.site, pages: s.site.pages.map((p) => (p.id === id ? { ...p, name } : p)) } }))
+    set((s) => {
+      const header = { ...s.site.header, props: { ...s.site.header.props } }
+      if (Array.isArray(header.props.links)) {
+        // menu me bhi naya naam dikhe
+        header.props.links = header.props.links.map((l) =>
+          l.link?.kind === 'page' && l.link?.target === id ? { ...l, label: name } : l
+        )
+      }
+      return {
+        site: {
+          ...s.site,
+          header,
+          pages: s.site.pages.map((p) => (p.id === id ? { ...p, name } : p)),
+        },
+      }
+    })
   },
   removePage(id) {
     const { site } = get()
     if (site.pages.length <= 1) return
     get()._snap()
     const pages = site.pages.filter((p) => p.id !== id)
-    set((s) => ({ site: { ...s.site, pages }, currentPageId: pages[0].id }))
+    set((s) => {
+      // page gaya to uska menu link bhi hatao, warna toota link reh jata
+      const header = { ...s.site.header, props: { ...s.site.header.props } }
+      if (Array.isArray(header.props.links)) {
+        header.props.links = header.props.links.filter(
+          (l) => !(l.link?.kind === 'page' && l.link?.target === id)
+        )
+      }
+      return { site: { ...s.site, header, pages }, currentPageId: pages[0].id }
+    })
   },
   setPage: (id) => set({ currentPageId: id, selectedId: null }),
 

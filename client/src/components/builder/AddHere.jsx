@@ -33,7 +33,7 @@ function Picker({ anchor, onPick, onClose }) {
         <div className="border-b border-white/10 p-2.5">
           <div className="relative">
             <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
-            <input autoFocus className="field !py-1.5 !pl-8 !text-xs" placeholder="Search a section to add" value={q} onChange={(e) => setQ(e.target.value)} />
+            <input autoFocus className="field !py-1.5 !pl-8 !text-xs" placeholder="Kya lagana hai? jaise photo, review" value={q} onChange={(e) => setQ(e.target.value)} />
           </div>
         </div>
         <div className="max-h-[330px] overflow-y-auto p-2.5">
@@ -83,7 +83,7 @@ export default function AddHere({ index }) {
           open ? 'opacity-100' : 'opacity-0 group-hover/add:opacity-100'
         }`}
       >
-        <Plus size={13} /> Add section
+        <Plus size={13} /> Yahan kuch lagao
       </button>
       {open ? <Picker anchor={btn.current} onPick={(type) => addBlock(type, index)} onClose={() => setOpen(false)} /> : null}
     </div>

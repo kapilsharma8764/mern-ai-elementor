@@ -6,13 +6,13 @@ import React from 'react'
  * ------------------------------------------------------------------ */
 
 export const LINK_KINDS = [
-  { id: 'section', label: 'Section on this page' },
-  { id: 'page', label: 'Another page' },
-  { id: 'url', label: 'Web address' },
-  { id: 'tel', label: 'Phone call' },
-  { id: 'wa', label: 'WhatsApp' },
-  { id: 'mail', label: 'Email' },
-  { id: 'none', label: 'No link' },
+  { id: 'page', label: 'Website ka doosra page' },
+  { id: 'section', label: 'Isi page me neeche le jao' },
+  { id: 'tel', label: 'Phone call lagao' },
+  { id: 'wa', label: 'WhatsApp kholo' },
+  { id: 'mail', label: 'Email bhejo' },
+  { id: 'url', label: 'Koi doosri website' },
+  { id: 'none', label: 'Kahin nahi (sirf dikhega)' },
 ]
 
 /** section anchor id — har block type ka fixed id, taki links kaam karein */

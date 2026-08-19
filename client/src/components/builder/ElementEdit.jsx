@@ -168,6 +168,13 @@ export default function ElementLayer({ block, frameRef, active, dragHandle }) {
     cancelAnimationFrame(rafRef.current)
     rafRef.current = requestAnimationFrame(() => {
       const under = pick(clientX, clientY)
+
+      // logo pe hover — alag se outline dikhao
+      const brand = under?.closest?.('[data-brand]')
+      if (brand && frame.contains(brand)) {
+        return setHover({ rect: rectIn(brand, frame), label: 'Logo — click karke badlo' })
+      }
+
       const path = under ? resolvePath(frame, under, block.props) : null
       if (!path) return setHover(null)
       const node = nodeForPath(frame, block.props, path)
@@ -305,6 +312,15 @@ export default function ElementLayer({ block, frameRef, active, dragHandle }) {
         onClick={(e) => {
           e.stopPropagation()
           const under = pick(e.clientX, e.clientY)
+
+          // Logo header/footer me business ka hissa hai, block ka nahi —
+          // isliye uspe click karne se pehle kuch select hi nahi hota tha.
+          // Ab logo pe click karo to Brand panel khul jata hai.
+          if (under?.closest?.('[data-brand]')) {
+            selectElement('header', null)
+            return
+          }
+
           const path = under ? resolvePath(frameRef.current, under, block.props) : null
           selectElement(block.id, path)
         }}
