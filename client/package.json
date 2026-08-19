@@ -21,7 +21,8 @@
     "gen:fields": "vite-node scripts/gen-usedfields.jsx",
     "prebuild": "npm run gen:fields",
     "test:sync": "vite-node scripts/syncheck.jsx",
-    "seed:templates": "vite-node scripts/seed-templates.js"
+    "seed:templates": "vite-node scripts/seed-templates.js",
+    "test:refresh": "vite-node scripts/refreshcheck.jsx"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

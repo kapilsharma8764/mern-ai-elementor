@@ -153,6 +153,9 @@ function buildPagesFromTemplate(tpl, biz) {
 /** ek hi autosave engine — 1.5 sec debounce */
 const autosave = makeAutosave(1500)
 
+/** ek waqt me ek hi createProject chale (warna do project ban jate) */
+let creating = false
+
 const initialState = {
   step: 'landing', // landing | wizard | templates | builder
   business: { ...emptyBusiness },
@@ -435,6 +438,13 @@ export const useBuilder = create((set, get) => ({
       if (!serverUp) set({ syncState: 'error', syncError: 'Browser ki memory bhar gayi — server chalu karo' })
     }
 
+    // project abhi tak nahi bana (template chunte hi banta hai, par request
+    // me thoda time lagta hai) — to bana lo, warna ye edits sirf local rehte
+    if (!projectId && serverUp && site) {
+      get().createProject()
+      return
+    }
+
     // server pe autosave
     if (projectId && serverUp) {
       set({ syncState: 'saving' })
@@ -450,49 +460,104 @@ export const useBuilder = create((set, get) => ({
   },
 
   /** app khulte hi — server zinda hai? phir project load karo */
-  async initServer() {
+  /**
+   * Browser me jo bacha hai usse project wapas laao.
+   * Refresh karne pe ye zaroori hai — warna banaya hua kaam chhod ke
+   * landing page khul jata tha.
+   */
+  restoreLocal() {
     try {
-      const h = await api.health()
-      set({ serverUp: true, syncState: 'idle' })
+      const d = JSON.parse(localStorage.getItem(KEY) || '{}')
+      if (!d.site) return false
+      set({
+        business: { ...emptyBusiness, ...(d.business || {}) },
+        site: d.site,
+        templateId: d.templateId || null,
+        projectId: d.projectId || null,
+        currentPageId: d.currentPageId || d.site?.pages?.[0]?.id || null,
+        step: 'builder',
+        selectedId: null,
+        selectedPath: null,
+        past: [],
+        future: [],
+      })
+      return true
+    } catch (e) {
+      return false
+    }
+  },
 
-      // pichhli baar jis project pe kaam kar rahe the
-      const saved = JSON.parse(localStorage.getItem(KEY) || '{}')
-      if (saved.projectId) {
-        try {
-          const doc = await api.sites.get(saved.projectId)
+  async initServer() {
+    // 1) Sabse pehle local se wapas le aao — server ka intezaar kiye bina
+    //    user ko apna kaam turant dikh jaye.
+    const hadLocal = get().restoreLocal()
+
+    let saved = {}
+    try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') } catch (e) { /* ignore */ }
+
+    // 2) Ab server se poochho
+    try {
+      await api.health()
+      set({ serverUp: true, syncState: hadLocal ? 'saved' : 'idle' })
+    } catch (e) {
+      // server band — local wala hi chalega
+      set({ serverUp: false, syncState: 'offline', syncError: e.message })
+      return { serverUp: false, loaded: hadLocal }
+    }
+
+    // 3) Server pe project hai to uska taaza version le aao
+    if (saved.projectId) {
+      try {
+        const doc = await api.sites.get(saved.projectId)
+        if (doc?.site) {
           set({
             projectId: doc.id,
             business: { ...emptyBusiness, ...doc.business },
             site: doc.site,
             templateId: doc.templateId,
             currentPageId: doc.site?.pages?.[0]?.id || null,
-            step: doc.site ? 'builder' : 'landing',
+            step: 'builder',
             syncState: 'saved',
             lastSavedAt: doc.updatedAt,
           })
           return { serverUp: true, loaded: true }
-        } catch (e) {
-          // project delete ho gaya ya id galat — local se hi chalao
-          set({ projectId: null })
         }
+      } catch (e) {
+        // project delete ho gaya ya id purani hai — local wala chalta rahega,
+        // aur agli baar naya project ban jayega
+        set({ projectId: null, syncError: '' })
+        try {
+          const d = JSON.parse(localStorage.getItem(KEY) || '{}')
+          delete d.projectId
+          localStorage.setItem(KEY, JSON.stringify(d))
+        } catch (err) { /* ignore */ }
       }
-      return { serverUp: true, loaded: false }
-    } catch (e) {
-      set({ serverUp: false, syncState: 'offline', syncError: e.message })
-      return { serverUp: false, loaded: false }
     }
+
+    // 4) Local site hai par server pe project nahi — abhi bana do,
+    //    taaki aage ka kaam cloud me jata rahe
+    if (get().site && !get().projectId) {
+      await get().createProject()
+      return { serverUp: true, loaded: true }
+    }
+
+    return { serverUp: true, loaded: hadLocal }
   },
 
   /** server pe naya project banao (template chunte waqt) */
   async createProject() {
     const { business, site, templateId, serverUp, projectId } = get()
-    if (!serverUp || projectId) return projectId
+    if (!serverUp || projectId || creating) return projectId
+    creating = true
     try {
       const doc = await api.sites.create({ business, site, templateId })
       set({ projectId: doc.id, syncState: 'saved', lastSavedAt: doc.updatedAt })
+      creating = false
+      // jo edits project banne se pehle hue the, wo ab bhej do
       get().save()
       return doc.id
     } catch (e) {
+      creating = false
       set({ syncState: 'error', syncError: e.message })
       return null
     }
