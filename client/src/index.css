@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body, #root { height: 100%; }
+body { overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #061229;
+  color: #e9f1ff;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* thin scrollbars */
+* { scrollbar-width: thin; scrollbar-color: #1b3560 #061229; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #1b3560; border-radius: 999px; border: 2px solid #061229; }
+::-webkit-scrollbar-track { background: transparent; }
+
+::selection { background: rgba(15,126,240,.35); }
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition select-none; }
+  .btn-primary { @apply btn bg-brand-500 text-white hover:bg-brand-400 active:bg-brand-600; }
+  .btn-ghost { @apply btn bg-white/5 text-slate-200 hover:bg-white/10 border border-white/10; }
+  .btn-danger { @apply btn bg-rose-500/15 text-rose-300 hover:bg-rose-500/25 border border-rose-500/30; }
+  .field { @apply w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-sm text-slate-100 outline-none focus:border-brand-400/60 focus:ring-2 focus:ring-brand-500/20 placeholder:text-slate-500; }
+  .label { @apply block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5; }
+  .card { @apply rounded-xl border border-white/10 bg-white/[0.03]; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-300; }
+
+  /* Pedinno gradient text + pill */
+  .grad-text { @apply bg-gradient-to-r from-brand-400 via-cyanx-400 to-cyanx-500 bg-clip-text text-transparent; }
+  .pill-cta {
+    @apply inline-flex items-center gap-2.5 rounded-full px-7 py-4 text-base font-bold text-white transition;
+    background: linear-gradient(100deg, #0f7ef0, #00c6ff);
+    box-shadow: 0 22px 55px -22px rgba(0, 150, 255, .95);
+  }
+  .pill-cta:hover { transform: translateY(-2px); filter: brightness(1.06); }
+  .pill-cta:active { transform: translateY(0); }
+}
+
+@layer utilities {
+  /* scroll reveal — Reveal component toggles .is-in */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1); }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  .glass { background: rgba(255,255,255,.06); backdrop-filter: blur(10px); }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .shine {
+    background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.22) 50%, transparent 75%);
+    background-size: 200% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* builder canvas reset so site sections render like a real site */
+.sitewrap {
+  color: #111;
+  container-type: inline-size;   /* fluid headings iske hisaab se scale hote hain */
+}
+.sitewrap * { box-sizing: border-box; }
+.sitewrap section, .sitewrap header, .sitewrap footer { container-type: inline-size; }

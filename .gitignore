@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+*/node_modules/
+
+# build output
+client/dist/
+dist/
+
+# server ka data
+server/uploads/
+*.log
+
+# env — kabhi commit mat karna (Mongo URL, JWT secret)
+.env
+.env.*
+!.env.example
+
+# editor / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# local file storage (projects)
+server/data/
