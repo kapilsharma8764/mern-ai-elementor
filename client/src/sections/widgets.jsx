@@ -83,15 +83,15 @@ const Nav = ({ t, p, biz, nav, invert, gap = 26 }) => (
 )
 
 const header = {
-  label: 'Upar ka Header',
+  label: 'Header',
   desc: 'Logo, menu aur button',
   popular: true,
-  group: 'Upar aur Neeche',
+  group: 'Layout',
   defaults: {
     links: [
       { label: 'Home', link: { kind: 'section', target: 'top' } },
       { label: 'About', link: { kind: 'section', target: 's-about' } },
-      { label: 'Hamari Services',
+      { label: 'Services',
   desc: 'Aap kya kaam karte ho',
   popular: true, link: { kind: 'section', target: 's-services' } },
       { label: 'Contact', link: { kind: 'section', target: 's-contact' } },
@@ -192,10 +192,10 @@ const header = {
 
 /* =============================== HERO / SLIDER =============================== */
 const hero = {
-  label: 'Website ka Banner',
+  label: 'Hero / Front Slider',
   desc: 'Sabse upar bada photo aur heading',
   popular: true,
-  group: 'Sabse Upar',
+  group: 'Hero',
   defaults: {
     eyebrow: 'Welcome',
     title: 'We build things that grow your business',
@@ -255,7 +255,7 @@ const hero = {
       render: ({ p, t, biz, nav }) => (
         <section style={{ position: 'relative', minHeight: 520, display: 'grid', alignItems: 'center', background: `linear-gradient(115deg, ${t.primary}, ${t.accent})`, color: '#fff' }}>
           {p.image ? <img src={p.image} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} /> : null}
-          <Wrap t={t} style={{ position: 'relative', padding: '90px 24px' }}>
+          <Wrap t={t} style={{ position: 'relative', padding: 'clamp(40px, 7cqw, 90px) clamp(16px, 4cqw, 32px)' }}>
             <div style={{ maxWidth: 720 }}>
               <div style={{ display: 'inline-block', background: 'rgba(255,255,255,.18)', borderRadius: t.radius, padding: '6px 12px', fontSize: 12, fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: 14, fontFamily: t.bodyFont }}>{p.eyebrow}</div>
               <H t={t} level={1} style={{ fontSize: fluid(30, 5.8, 60, t.headingScale ?? 1) }}>{p.title}</H>
@@ -274,7 +274,7 @@ const hero = {
     overlap: {
       name: 'Card overlap',
       render: ({ p, t, biz, nav }) => (
-        <section style={{ background: t.alt, color: t.text, padding: `${80 * t.density}px 0` }}>
+        <section style={{ background: t.alt, color: t.text, padding: `clamp(34px, 6.67cqw, ${80 * t.density}px) 0` }}>
           <Wrap t={t}>
             <div style={{ textAlign: 'center', maxWidth: 700, margin: '0 auto' }}>
               <Eyebrow t={t} center>{p.eyebrow}</Eyebrow>
@@ -335,10 +335,10 @@ const hero = {
 
 /* =============================== ABOUT =============================== */
 const about = {
-  label: 'Hamare Baare Mein',
+  label: 'About Section',
   desc: 'Company ki kahani',
   popular: true,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'About us',
     title: 'Built on trust, delivered with care',
@@ -444,7 +444,7 @@ const about = {
 /* =============================== SERVICES =============================== */
 const services = {
   label: 'Services',
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'What we do',
     title: 'Services built around your goals',
@@ -514,10 +514,10 @@ const services = {
             <SectionHead t={t} eyebrow={p.eyebrow} title={p.title} sub={p.sub} align="left" />
             <div>
               {(p.items || []).map((s, i) => (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 1.4fr', gap: 24, padding: '26px 0', borderTop: `1px solid ${hexA(t.text, 0.12)}`, alignItems: 'start' }}>
-                  <div style={{ fontFamily: t.headingFont, fontSize: 28, fontWeight: 800, color: hexA(t.primary, 0.5) }}>{String(i + 1).padStart(2, '0')}</div>
-                  <H t={t} level={4}>{s.title}</H>
-                  <P t={t}>{s.text}</P>
+                <div key={i} style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 24px', padding: '24px 0', borderTop: `1px solid ${hexA(t.text, 0.12)}`, alignItems: 'flex-start' }}>
+                  <div style={{ fontFamily: t.headingFont, fontSize: fluid(20, 3, 28), fontWeight: 800, color: hexA(t.primary, 0.5), width: 56 }}>{String(i + 1).padStart(2, '0')}</div>
+                  <H t={t} level={4} style={{ flex: '1 1 180px', minWidth: 0 }}>{s.title}</H>
+                  <P t={t} style={{ flex: '1.4 1 240px', minWidth: 0 }}>{s.text}</P>
                 </div>
               ))}
             </div>
@@ -572,10 +572,10 @@ const services = {
 
 /* =============================== PRODUCTS =============================== */
 const products = {
-  label: 'Products',
+  label: 'Product Information',
   desc: 'Saman ki list, price ke saath',
   popular: true,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Our products',
     title: 'Products people actually love',
@@ -677,10 +677,10 @@ const products = {
 
 /* =============================== TESTIMONIALS =============================== */
 const testimonials = {
-  label: 'Customer ki Raay',
+  label: 'Testimonial',
   desc: 'Logon ke review aur tareef',
   popular: true,
-  group: 'Bharosa Banane Ke Liye',
+  group: 'Social Proof',
   defaults: {
     eyebrow: 'Testimonials',
     title: 'What our clients say',
@@ -780,10 +780,10 @@ const testimonials = {
 
 /* =============================== STATS =============================== */
 const stats = {
-  label: 'Ginti / Numbers',
+  label: 'Stats',
   desc: '500+ customer, 15 saal',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     title: 'Numbers that matter',
     items: [
@@ -803,7 +803,7 @@ const stats = {
             <Grid cols={(p.items || []).length || 4} gap={20}>
               {(p.items || []).map((s, i) => (
                 <div key={i} style={{ textAlign: 'center' }}>
-                  <div style={{ fontFamily: t.headingFont, fontSize: 40, fontWeight: 800, color: t.primary }}>{s.value}</div>
+                  <div style={{ fontFamily: t.headingFont, fontSize: fluid(26, 4.4, 40), fontWeight: 800, color: t.primary }}>{s.value}</div>
                   <div style={{ fontFamily: t.bodyFont, fontSize: 14, color: t.sub, marginTop: 6 }}>{s.label}</div>
                 </div>
               ))}
@@ -820,7 +820,7 @@ const stats = {
             <Grid cols={(p.items || []).length || 4} gap={0} style={{ border: `1px solid ${hexA(t.text, 0.12)}`, borderRadius: t.radius, overflow: 'hidden' }}>
               {(p.items || []).map((s, i) => (
                 <div key={i} style={{ padding: 30, borderLeft: i ? `1px solid ${hexA(t.text, 0.12)}` : 'none' }}>
-                  <div style={{ fontFamily: t.headingFont, fontSize: 36, fontWeight: 800 }}>{s.value}</div>
+                  <div style={{ fontFamily: t.headingFont, fontSize: fluid(24, 4, 36), fontWeight: 800 }}>{s.value}</div>
                   <div style={{ fontFamily: t.bodyFont, fontSize: 13, color: t.sub, marginTop: 8, textTransform: 'uppercase', letterSpacing: '.08em' }}>{s.label}</div>
                 </div>
               ))}
@@ -837,7 +837,7 @@ const stats = {
             <Grid cols={(p.items || []).length || 4} gap={20}>
               {(p.items || []).map((s, i) => (
                 <div key={i} style={{ textAlign: 'center', color: '#fff' }}>
-                  <div style={{ fontFamily: t.headingFont, fontSize: 42, fontWeight: 800 }}>{s.value}</div>
+                  <div style={{ fontFamily: t.headingFont, fontSize: fluid(28, 4.6, 42), fontWeight: 800 }}>{s.value}</div>
                   <div style={{ fontFamily: t.bodyFont, fontSize: 14, opacity: 0.85, marginTop: 6 }}>{s.label}</div>
                 </div>
               ))}
@@ -851,10 +851,10 @@ const stats = {
 
 /* =============================== INFORMATION =============================== */
 const info = {
-  label: 'Khaas Baatein',
+  label: 'Information',
   desc: 'Point-by-point jaankari',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Why us',
     title: 'Information that helps you decide',
@@ -929,10 +929,10 @@ const info = {
 
 /* =============================== GRAPH + INFO =============================== */
 const chart = {
-  label: 'Graph',
+  label: 'Graph & Information',
   desc: 'Growth chart ke saath jaankari',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Performance',
     title: 'Growth you can measure',
@@ -1045,10 +1045,10 @@ const Input = ({ t, ph, area }) => {
 }
 
 const contact = {
-  label: 'Contact Form',
+  label: 'Contact / Enquiry Form',
   desc: 'Customer message bhej sake',
   popular: true,
-  group: 'Sampark',
+  group: 'Contact',
   defaults: {
     eyebrow: 'Contact',
     title: 'Send us an enquiry',
@@ -1153,10 +1153,10 @@ const contact = {
 
 /* =============================== MAP =============================== */
 const map = {
-  label: 'Location Map',
+  label: 'Google Map',
   desc: 'Dukaan ya office kahan hai',
   popular: false,
-  group: 'Sampark',
+  group: 'Contact',
   defaults: { title: 'Find us', height: 420 },
   schema: [F.text('title', 'Title'), F.num('height', 'Height (px)', { min: 200, max: 800 })],
   variants: {
@@ -1201,10 +1201,10 @@ const map = {
 
 /* =============================== GALLERY =============================== */
 const gallery = {
-  label: 'Photo Gallery',
+  label: 'Gallery',
   desc: 'Apne kaam ki photos',
   popular: true,
-  group: 'Photo aur Video',
+  group: 'Media',
   defaults: { eyebrow: 'Gallery', title: 'A look at our work', items: [{}, {}, {}, {}, {}, {}] },
   schema: [F.text('eyebrow', 'Eyebrow'), F.text('title', 'Title'), F.list('items', 'Images', [F.img('image', 'Image'), F.text('caption', 'Caption')], 'Add image')],
   variants: {
@@ -1243,10 +1243,10 @@ const gallery = {
 
 /* =============================== TEAM =============================== */
 const team = {
-  label: 'Hamari Team',
+  label: 'Team',
   desc: 'Team members ki photo aur naam',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Our team', title: 'The people behind the work',
     items: [
@@ -1302,10 +1302,10 @@ const team = {
 
 /* =============================== PRICING =============================== */
 const pricing = {
-  label: 'Price List',
+  label: 'Pricing',
   desc: 'Package aur unke rate',
   popular: true,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Pricing', title: 'Simple, honest plans',
     items: [
@@ -1326,7 +1326,7 @@ const pricing = {
               {(p.items || []).map((s, i) => (
                 <div key={i} style={{ background: s.featured ? t.primary : t.bg, color: s.featured ? '#fff' : t.text, borderRadius: t.radius, padding: 30, border: `1px solid ${hexA(t.text, 0.1)}`, transform: s.featured ? 'scale(1.03)' : 'none' }}>
                   <div style={{ fontFamily: t.bodyFont, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', fontSize: 12, opacity: 0.8 }}>{s.name}</div>
-                  <div style={{ fontFamily: t.headingFont, fontSize: 40, fontWeight: 800, marginTop: 12 }}>{s.price}<span style={{ fontSize: 15, fontWeight: 500, opacity: 0.7 }}>{s.period}</span></div>
+                  <div style={{ fontFamily: t.headingFont, fontSize: fluid(26, 4.4, 40), fontWeight: 800, marginTop: 12 }}>{s.price}<span style={{ fontSize: 15, fontWeight: 500, opacity: 0.7 }}>{s.period}</span></div>
                   <div style={{ marginTop: 20, display: 'grid', gap: 10, fontFamily: t.bodyFont, fontSize: 15 }}>
                     {String(s.features || '').split('\n').filter(Boolean).map((f, j) => <div key={j}>✓ &nbsp;{f}</div>)}
                   </div>
@@ -1346,7 +1346,7 @@ const pricing = {
             <SectionHead t={t} eyebrow={p.eyebrow} title={p.title} />
             <div style={{ border: `1px solid ${hexA(t.text, 0.12)}`, borderRadius: t.radius, overflow: 'hidden' }}>
               {(p.items || []).map((s, i) => (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '180px 1fr 160px', gap: 20, padding: '22px 24px', alignItems: 'center', borderTop: i ? `1px solid ${hexA(t.text, 0.12)}` : 'none', background: s.featured ? hexA(t.primary, 0.06) : 'transparent' }}>
+                <div key={i} style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 20px', padding: '20px 22px', alignItems: 'center', borderTop: i ? `1px solid ${hexA(t.text, 0.12)}` : 'none', background: s.featured ? hexA(t.primary, 0.06) : 'transparent' }}>
                   <div><div style={{ fontFamily: t.headingFont, fontWeight: 800, fontSize: 18 }}>{s.name}</div><div style={{ color: t.primary, fontWeight: 700, fontFamily: t.bodyFont }}>{s.price}{s.period}</div></div>
                   <div style={{ fontFamily: t.bodyFont, fontSize: 14, color: t.sub }}>{String(s.features || '').split('\n').filter(Boolean).join(' · ')}</div>
                   <div style={{ textAlign: 'right' }}><A link={s.link} biz={biz} onNavigate={nav}><Btn t={t} size="sm" variant={s.featured ? 'solid' : 'ghost'}>Select</Btn></A></div>
@@ -1362,10 +1362,10 @@ const pricing = {
 
 /* =============================== FAQ =============================== */
 const faq = {
-  label: 'Common Sawal',
+  label: 'FAQ',
   desc: 'Sawal aur jawab',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'FAQ', title: 'Questions, answered',
     items: [
@@ -1418,10 +1418,10 @@ const faq = {
 
 /* =============================== LOGOS =============================== */
 const logos = {
-  label: 'Client ke Logo',
+  label: 'Client Logos',
   desc: 'Kin companies ke saath kaam kiya',
   popular: false,
-  group: 'Bharosa Banane Ke Liye',
+  group: 'Social Proof',
   defaults: { title: 'Trusted by teams across India', items: [{ label: 'NORTHLINE' }, { label: 'BLUECORE' }, { label: 'CRAFTLY' }, { label: 'VERTEX' }, { label: 'ORBIT' }] },
   schema: [F.text('title', 'Title'), F.list('items', 'Logos', [F.text('label', 'Name'), F.img('image', 'Logo image')], 'Add logo')],
   variants: {
@@ -1461,10 +1461,10 @@ const logos = {
 
 /* =============================== CTA =============================== */
 const cta = {
-  label: 'Action Box',
+  label: 'Call To Action',
   desc: '"Abhi call karo" wala bada box',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     title: 'Ready to start your project?', sub: 'Tell us what you need and get a free quote in 24 hours.',
     button: 'Talk to us', buttonLink: { kind: 'section', target: 's-contact' },
@@ -1497,7 +1497,7 @@ const cta = {
       render: ({ p, t, biz, nav }) => (
         <Section t={t}>
           <Wrap t={t}>
-            <div style={{ borderRadius: t.radius, background: `linear-gradient(120deg, ${t.primary}, ${t.accent})`, color: '#fff', padding: 56, textAlign: 'center' }}>
+            <div style={{ borderRadius: t.radius, background: `linear-gradient(120deg, ${t.primary}, ${t.accent})`, color: '#fff', padding: 'clamp(24px, 4cqw, 56px)', textAlign: 'center' }}>
               <H t={t} level={2} style={{ color: '#fff' }}>{p.title}</H>
               <P t={t} dim={false} style={{ marginTop: 12, opacity: 0.92, maxWidth: 560, marginInline: 'auto' }}>{p.sub}</P>
               <div style={{ display: 'flex', gap: 12, marginTop: 26, justifyContent: 'center' }}><A link={p.buttonLink} biz={biz} onNavigate={nav}><Btn t={t} size="lg" variant="light">{p.button}</Btn></A></div>
@@ -1523,10 +1523,10 @@ const cta = {
 
 /* =============================== NEWSLETTER =============================== */
 const newsletter = {
-  label: 'Email Signup',
+  label: 'Newsletter',
   desc: 'Customer ka email lo',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: { title: 'Get updates in your inbox', sub: 'One useful email a month. No spam, ever.', button: 'Subscribe' },
   schema: [F.text('title', 'Title'), F.area('sub', 'Sub text'), F.text('button', 'Button')],
   variants: {
@@ -1567,7 +1567,7 @@ const heading = {
   label: 'Heading',
   desc: 'Bas ek moti line',
   popular: false,
-  group: 'Chhoti Cheezein',
+  group: 'Basic',
   defaults: { text: 'A section heading', level: 2, align: 'left' },
   schema: [F.text('text', 'Text'), F.sel('level', 'Level', [1, 2, 3, 4]), F.sel('align', 'Align', ['left', 'center', 'right'])],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1576,10 +1576,10 @@ const heading = {
 }
 
 const textBlock = {
-  label: 'Likhai',
+  label: 'Text',
   desc: 'Simple paragraph',
   popular: false,
-  group: 'Chhoti Cheezein',
+  group: 'Basic',
   defaults: { text: 'Write anything here. This block is great for paragraphs of copy, notices or long descriptions.', align: 'left', size: 16 },
   schema: [F.area('text', 'Text'), F.sel('align', 'Align', ['left', 'center', 'right']), F.num('size', 'Font size', { min: 12, max: 32 })],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1588,10 +1588,10 @@ const textBlock = {
 }
 
 const imageBlock = {
-  label: 'Photo',
+  label: 'Image',
   desc: 'Ek photo lagao',
   popular: false,
-  group: 'Chhoti Cheezein',
+  group: 'Basic',
   defaults: { image: '', ratio: '16/9', caption: '', full: false },
   schema: [F.img('image', 'Image'), F.sel('ratio', 'Aspect ratio', ['16/9', '4/3', '1/1', '3/4', '21/9']), F.text('caption', 'Caption'), F.bool('full', 'Full width')],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1606,7 +1606,7 @@ const buttonBlock = {
   label: 'Button',
   desc: 'Click karne wala button',
   popular: false,
-  group: 'Chhoti Cheezein',
+  group: 'Basic',
   defaults: { text: 'Click here', align: 'center', variant: 'solid', link: { kind: 'section', target: 's-contact' } },
   schema: [
     F.text('text', 'Text'), { key: 'link', label: 'Links to', type: 'link' },
@@ -1623,10 +1623,10 @@ const buttonBlock = {
 }
 
 const spacer = {
-  label: 'Khali Jagah',
+  label: 'Spacer / Divider',
   desc: 'Do cheezon ke beech gap ya line',
   popular: false,
-  group: 'Chhoti Cheezein',
+  group: 'Basic',
   defaults: { height: 60, line: true },
   schema: [F.num('height', 'Height (px)', { min: 0, max: 300 }), F.bool('line', 'Show divider line')],
   variants: { plain: { name: 'Plain', render: ({ p, t, biz, nav }) => (
@@ -1640,7 +1640,7 @@ const video = {
   label: 'Video',
   desc: 'YouTube video lagao',
   popular: false,
-  group: 'Photo aur Video',
+  group: 'Media',
   defaults: { title: 'Watch how it works', url: '' },
   schema: [F.text('title', 'Title'), F.text('url', 'Embed URL (YouTube embed link)')],
   variants: { boxed: { name: 'Boxed', render: ({ p, t, biz, nav }) => (
@@ -1658,10 +1658,10 @@ const video = {
 
 /* =============================== FOOTER =============================== */
 const footer = {
-  label: 'Neeche ka Footer',
+  label: 'Footer',
   desc: 'Contact, links aur copyright',
   popular: true,
-  group: 'Upar aur Neeche',
+  group: 'Layout',
   defaults: {
     about: 'We help businesses grow with design, engineering and honest advice.',
     cols: [
@@ -1680,7 +1680,7 @@ const footer = {
     columns: {
       name: 'Multi column',
       render: ({ p, t, biz, nav }) => (
-        <footer style={{ background: t.dark, color: '#fff', padding: `${64 * t.density}px 0 28px` }}>
+        <footer style={{ background: t.dark, color: '#fff', padding: `clamp(29px, 5.33cqw, ${64 * t.density}px) 0 28px` }}>
           <Wrap t={t}>
             <div style={{ display: 'grid', gridTemplateColumns: '1.4fr repeat(auto-fit, minmax(150px, 1fr)) 1.2fr', gap: 40 }}>
               <div>
@@ -1719,7 +1719,7 @@ const footer = {
     simple: {
       name: 'Simple centered',
       render: ({ p, t, biz, nav }) => (
-        <footer style={{ background: t.alt, color: t.text, padding: `${48 * t.density}px 0`, borderTop: `1px solid ${hexA(t.text, 0.1)}`, textAlign: 'center' }}>
+        <footer style={{ background: t.alt, color: t.text, padding: `clamp(20px, 4.00cqw, ${48 * t.density}px) 0`, borderTop: `1px solid ${hexA(t.text, 0.1)}`, textAlign: 'center' }}>
           <Wrap t={t}>
             <div style={{ display: 'inline-flex' }}><Logo t={t} biz={biz} /></div>
             <P t={t} style={{ marginTop: 14, maxWidth: 520, marginInline: 'auto', fontSize: 14 }}>{p.about}</P>
@@ -1734,7 +1734,7 @@ const footer = {
     bigcta: {
       name: 'Big CTA footer',
       render: ({ p, t, biz, nav }) => (
-        <footer style={{ background: t.dark, color: '#fff', padding: `${70 * t.density}px 0 26px` }}>
+        <footer style={{ background: t.dark, color: '#fff', padding: `clamp(32px, 5.83cqw, ${70 * t.density}px) 0 26px` }}>
           <Wrap t={t}>
             <H t={t} level={2} style={{ fontSize: fluid(26, 4.6, 46), color: '#fff', maxWidth: '18ch' }}>Let&rsquo;s build something together.</H>
             <div style={{ marginTop: 22 }}><Btn t={t} size="lg" variant="accent">{biz.phone || 'Contact us'}</Btn></div>

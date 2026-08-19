@@ -6,7 +6,7 @@ import { BlockView } from '../sections/Renderer'
 import { PALETTES, FONTS } from '../data/design'
 import { personaliseSite } from '../store/personalise'
 import { PedinnoLogo } from './Landing'
-import { ChevronLeft, Search, Eye, X, Check } from 'lucide-react'
+import { ChevronLeft, Search, Eye, X, Check, Monitor, Tablet, Smartphone } from 'lucide-react'
 
 /** template ke blocks banao aur business info se bhar do — preview = final output */
 function previewBlocks(tpl, business) {
@@ -61,20 +61,43 @@ function MiniPreview({ tpl, business, height = 300, scale = 0.24 }) {
 function FullPreview({ tpl, business, onClose, onUse }) {
   const theme = useMemo(() => resolveTheme(tpl.theme), [tpl])
   const blocks = useMemo(() => previewBlocks(tpl, business), [tpl, business])
+  const [device, setDevice] = useState('desktop')
+  const W = { desktop: 1280, tablet: 834, mobile: 420 }[device]
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-black/80 backdrop-blur">
-      <div className="flex items-center justify-between border-b border-white/10 bg-panel px-5 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-panel px-5 py-3">
         <div>
           <div className="text-sm font-semibold">#{tpl.no} · {tpl.name}</div>
           <div className="text-xs text-slate-400">{tpl.category} · {tpl.blocks.length} sections</div>
         </div>
+
+        {/* mobile / tablet / desktop — select karne se pehle dekho */}
+        <div className="flex rounded-lg bg-white/5 p-0.5">
+          {[['desktop', Monitor, 'Computer'], ['tablet', Tablet, 'Tablet'], ['mobile', Smartphone, 'Mobile']].map(([d, Icon, label]) => (
+            <button
+              key={d}
+              onClick={() => setDevice(d)}
+              title={label}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[11px] font-semibold transition ${
+                device === d ? 'bg-brand-500 text-white' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Icon size={14} /> {label}
+            </button>
+          ))}
+        </div>
+
         <div className="flex gap-2">
           <button className="btn-primary" onClick={() => onUse(tpl.id)}><Check size={15} /> Use this template</button>
           <button className="btn-ghost" onClick={onClose}><X size={15} /></button>
         </div>
       </div>
       <div className="flex-1 overflow-auto bg-[#0d1326] p-4">
-        <div className="mx-auto shadow-2xl" style={{ maxWidth: 1440, width: '100%' }}>
+        <div
+          className="mx-auto bg-white shadow-2xl transition-[width] duration-300"
+          style={{ width: W, maxWidth: '100%' }}
+        >
           <div className="sitewrap" style={{ background: theme.bg }}>
             {blocks.map((b) => <BlockView key={b.id} block={b} theme={theme} business={business} />)}
           </div>

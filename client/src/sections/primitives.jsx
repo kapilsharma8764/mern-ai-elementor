@@ -31,9 +31,14 @@ export function Wrap({ t, children, style, className = '' }) {
 export function Section({ t, tone = 'bg', children, style = {}, pad }) {
   const bg = tone === 'alt' ? t.alt : tone === 'primary' ? t.primary : tone === 'dark' ? t.dark : t.bg
   const fg = tone === 'primary' || tone === 'dark' ? '#fff' : t.text
-  const p = (pad ?? 88) * t.density
+  // Vertical padding bhi section ki chaudai ke hisaab se — mobile pe 96px
+  // ki jagah ~36px, desktop pe poora. Warna phone pe aadhi screen khali.
+  const max = (pad ?? 88) * t.density
+  const min = Math.round(max * 0.42)
   return (
-    <section style={{ background: bg, color: fg, padding: `${px(p)} 0`, ...style }}>{children}</section>
+    <section style={{ background: bg, color: fg, padding: `clamp(${min}px, ${(max / 12).toFixed(2)}cqw, ${Math.round(max)}px) 0`, ...style }}>
+      {children}
+    </section>
   )
 }
 

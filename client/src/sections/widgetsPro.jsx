@@ -39,7 +39,7 @@ export const HERO_VARIANTS = {
   mesh: {
     name: 'Mesh gradient · display type',
     render: ({ p, t, biz, nav }) => (
-      <section style={{ ...mesh(t), color: '#fff', padding: `${120 * t.density}px 0 ${100 * t.density}px` }}>
+      <section style={{ ...mesh(t), color: '#fff', padding: `clamp(50px, 10.00cqw, ${120 * t.density}px) 0 clamp(42px, 8.33cqw, ${100 * t.density}px)` }}>
         <Wrap t={t}>
           <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', fontFamily: t.bodyFont, fontSize: 12, letterSpacing: '.18em', textTransform: 'uppercase', opacity: 0.7, marginBottom: 42 }}>
             {(p.slides || []).slice(0, 4).map((s, i) => (
@@ -67,7 +67,7 @@ export const HERO_VARIANTS = {
       <section style={{ background: t.bg, color: t.text, paddingTop: 70 * t.density }}>
         <Wrap t={t}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'flex-start' }}>
-            <H t={t} level={1} style={{ fontSize: fluid(32, 6.6, 76, t.headingScale ?? 1), lineHeight: 1.02, letterSpacing: '-.03em', flex: '3 1 420px', maxWidth: '16ch' }}>
+            <H t={t} level={1} style={{ fontSize: fluid(32, 6.6, 76, t.headingScale ?? 1), lineHeight: 1.02, letterSpacing: '-.03em', flex: '3 1 320px', maxWidth: '16ch' }}>
               {p.title}
             </H>
             <div style={{ paddingTop: 8, flex: '1 1 240px', minWidth: 0 }}>
@@ -89,7 +89,7 @@ export const HERO_VARIANTS = {
   bento: {
     name: 'Bento panel',
     render: ({ p, t, biz, nav }) => (
-      <section style={{ background: t.bg, color: t.text, padding: `${48 * t.density}px 0 ${70 * t.density}px` }}>
+      <section style={{ background: t.bg, color: t.text, padding: `clamp(20px, 4.00cqw, ${48 * t.density}px) 0 clamp(29px, 5.83cqw, ${70 * t.density}px)` }}>
         <Wrap t={t}>
           <div style={{ borderRadius: 28, overflow: 'hidden', ...mesh(t), color: '#fff', padding: 'clamp(24px, 4cqw, 46px)', minHeight: 340, display: 'flex', flexWrap: 'wrap', gap: 36, alignItems: 'center' }}>
             <div style={{ flex: '1 1 320px', minWidth: 0 }}>
@@ -115,7 +115,7 @@ export const HERO_VARIANTS = {
   statcard: {
     name: 'Dark + floating stat card',
     render: ({ p, t, biz, nav }) => (
-      <section style={{ position: 'relative', ...mesh(t, 0.8), color: '#fff', padding: `${100 * t.density}px 0` }}>
+      <section style={{ position: 'relative', ...mesh(t, 0.8), color: '#fff', padding: `clamp(42px, 8.33cqw, ${100 * t.density}px) 0` }}>
         {p.image ? <img src={p.image} alt="" data-bind='["image"]' style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3 }} /> : null}
         <Wrap t={t} style={{ position: 'relative' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 44, alignItems: 'center' }}>
@@ -150,10 +150,10 @@ export const HERO_VARIANTS = {
 
 /* =============================== MARQUEE =============================== */
 const marquee = {
-  label: 'Chalti Patti',
+  label: 'Marquee Strip',
   desc: 'Text jo side se chalta rehta hai',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: { text: 'Design · Engineering · Automation · Support', repeat: 4, tone: 'primary' },
   schema: [F.text('text', 'Text'), F.num('repeat', 'Repeats', { min: 2, max: 8 }), F.sel('tone', 'Tone', ['primary', 'dark', 'alt', 'outline'])],
   variants: {
@@ -164,7 +164,7 @@ const marquee = {
         const fg = p.tone === 'alt' || p.tone === 'outline' ? t.text : '#fff'
         const n = Math.max(2, Number(p.repeat) || 4)
         return (
-          <section style={{ background: bg, color: fg, overflow: 'hidden', padding: `${22 * t.density}px 0`, borderTop: p.tone === 'outline' ? `1px solid ${hexA(t.text, 0.14)}` : 'none', borderBottom: p.tone === 'outline' ? `1px solid ${hexA(t.text, 0.14)}` : 'none' }}>
+          <section style={{ background: bg, color: fg, overflow: 'hidden', padding: `clamp(9px, 1.83cqw, ${22 * t.density}px) 0`, borderTop: p.tone === 'outline' ? `1px solid ${hexA(t.text, 0.14)}` : 'none', borderBottom: p.tone === 'outline' ? `1px solid ${hexA(t.text, 0.14)}` : 'none' }}>
             <Keyframes name="wbmarq" from="translateX(0)" to="translateX(-50%)" />
             <div style={{ display: 'flex', width: 'max-content', animation: 'wbmarq 24s linear infinite' }}>
               {[0, 1].map((k) => (
@@ -204,10 +204,10 @@ const marquee = {
 
 /* =============================== BENTO GRID =============================== */
 const bento = {
-  label: 'Boxes me Baatein',
+  label: 'Bento Grid',
   desc: 'Chhote-bade box me khaasiyat',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Capabilities',
     title: 'Everything in one system',
@@ -287,10 +287,10 @@ const bento = {
 
 /* =============================== WORK / PORTFOLIO =============================== */
 const work = {
-  label: 'Hamara Kaam',
+  label: 'Featured Work',
   desc: 'Ab tak kiye hue project',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'Selected work',
     title: 'Featured Works',
@@ -359,10 +359,10 @@ const work = {
 
 /* =============================== BIG STATS =============================== */
 const bigstats = {
-  label: 'Bade Numbers',
+  label: 'Big Numbers',
   desc: 'Bahut bade numbers, dhyan khinchne ko',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     items: [
       { value: '65', label: 'Completed projects' },
@@ -414,10 +414,10 @@ const bigstats = {
 
 /* =============================== PROCESS =============================== */
 const process = {
-  label: 'Kaam Kaise Hota Hai',
+  label: 'Process Steps',
   desc: '1-2-3 karke tarika batao',
   popular: false,
-  group: 'Main Content',
+  group: 'Content',
   defaults: {
     eyebrow: 'How we work',
     title: 'From brief to build',

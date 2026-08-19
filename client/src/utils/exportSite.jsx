@@ -154,6 +154,16 @@ ${schema(business)}
   .exported-nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:99;display:flex;gap:6px;background:rgba(17,23,43,.92);padding:8px 10px;border-radius:999px;font:600 12px ${theme.bodyFont};backdrop-filter:blur(6px)}
   .exported-nav a{color:#e7ecff;text-decoration:none;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.08)}
   .wb-page[hidden]{display:none}
+  /* chhoti screen — sab ek column me */
+  @container (max-width: 720px){
+    .sitewrap [style*="grid-template-columns"]{grid-template-columns:1fr !important}
+    .sitewrap [style*="position: sticky"]{position:static !important}
+  }
+  @container (max-width: 520px){
+    .sitewrap [style*="flex-direction: row"]{flex-direction:column !important;align-items:flex-start !important}
+    .sitewrap [style*="text-align: right"]{text-align:left !important}
+  }
+  /* purane browsers ke liye media query bhi */
   @media (max-width:760px){
     [style*="grid-template-columns"]{grid-template-columns:1fr !important}
   }

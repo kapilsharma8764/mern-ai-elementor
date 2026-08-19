@@ -75,3 +75,15 @@ body {
 }
 .sitewrap * { box-sizing: border-box; }
 .sitewrap section, .sitewrap header, .sitewrap footer { container-type: inline-size; }
+
+/* Mobile / chhoti screen — sab kuch ek column me aa jaye.
+   Container query isliye use ki hai (media query nahi) kyunki builder me
+   canvas ki chaudai badalti hai, browser window ki nahi. */
+@container (max-width: 720px) {
+  .sitewrap [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+  .sitewrap [style*="position: sticky"] { position: static !important; }
+}
+@container (max-width: 520px) {
+  .sitewrap [style*="flex-direction: row"] { flex-direction: column !important; align-items: flex-start !important; }
+  .sitewrap [style*="text-align: right"] { text-align: left !important; }
+}
