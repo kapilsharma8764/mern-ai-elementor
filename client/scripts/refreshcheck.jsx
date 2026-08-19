@@ -33,17 +33,21 @@ const pagesBefore = S().site.pages.length
 
 console.log('\n--- 2. REFRESH (server chalu) ---')
 await refresh()
-ok(S().step === 'builder', 'refresh ke baad builder me hi hain, landing pe nahi', S().step)
-ok(S().site?.pages?.length === pagesBefore, 'saare pages wapas mile', String(S().site?.pages?.length))
-ok(S().business.name === 'Pedinno AI', 'business info wapas mili')
+ok(S().step === 'landing', 'refresh pe FRONT PAGE khulta hai', S().step)
+ok(S().site?.pages?.length === pagesBefore, 'purana project peeche safe hai', String(S().site?.pages?.length))
+ok(S().business.name === 'Pedinno AI', 'business info bhi safe hai')
 ok(S().projectId === id, 'wahi project id')
+
+S().continueProject()
+ok(S().step === 'builder', 'Continue dabane pe builder khulta hai', S().step)
+ok(S().site?.pages?.length === pagesBefore, 'poora kaam waisa ka waisa mila')
 
 console.log('\n--- 3. REFRESH (server band) ---')
 const realFetch = globalThis.fetch
 globalThis.fetch = () => Promise.reject(new Error('Failed to fetch'))
 await refresh()
-ok(S().step === 'builder', 'server band hone par bhi builder me hain', S().step)
-ok(S().site?.pages?.length === pagesBefore, 'local se poora project mila', String(S().site?.pages?.length))
+ok(S().step === 'landing', 'server band ho to bhi front page', S().step)
+ok(S().site?.pages?.length === pagesBefore, 'local se poora project safe hai', String(S().site?.pages?.length))
 ok(S().serverUp === false, 'offline pata hai')
 ok(S().syncState === 'offline', 'badge offline dikhayega', S().syncState)
 globalThis.fetch = realFetch
@@ -54,8 +58,8 @@ await useBuilder.getState().listProjects()
 const gone = 'aaaaaaaaaaaaaaaaaaaaaaaa'
 store['wb.project.v1'] = JSON.stringify({ ...JSON.parse(store['wb.project.v1']), projectId: gone })
 await refresh()
-ok(S().step === 'builder', 'galat id hone par bhi kaam nahi khoya', S().step)
-ok(!!S().site, 'local se site wapas mili')
+ok(S().step === 'landing', 'galat id pe bhi front page', S().step)
+ok(!!S().site, 'kaam phir bhi nahi khoya — Continue se wapas milega')
 
 console.log('\n--- 5. NAYA USER (kuch nahi bana) ---')
 store = {}

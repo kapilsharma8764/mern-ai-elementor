@@ -161,9 +161,16 @@ const FEATURES = [
 
 /* ------------------------------- page ------------------------------- */
 export default function Landing() {
-  const { setStep, hasSaved, load } = useBuilder()
+  const setStep = useBuilder((s) => s.setStep)
+  const site = useBuilder((s) => s.site)
+  const business = useBuilder((s) => s.business)
+  const continueProject = useBuilder((s) => s.continueProject)
+  const serverUp = useBuilder((s) => s.serverUp)
   const [scrolled, setScrolled] = useState(false)
-  const saved = hasSaved()
+
+  // refresh pe hamesha yahi page khulta hai; purana kaam yahan se wapas
+  const hasProject = !!site
+  const pageCount = site?.pages?.length || 0
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -206,9 +213,9 @@ export default function Landing() {
               ))}
             </nav>
             <div className="ml-auto flex items-center gap-2.5">
-              {saved ? (
-                <button className="btn-ghost !rounded-full" onClick={() => load()}>
-                  <RotateCcw size={15} /> <span className="hidden sm:inline">Resume project</span>
+              {hasProject ? (
+                <button className="btn-ghost !rounded-full" onClick={continueProject}>
+                  <RotateCcw size={15} /> <span className="hidden sm:inline">Continue editing</span>
                 </button>
               ) : null}
               <button onClick={start} className="pill-cta !px-5 !py-2.5 !text-sm">

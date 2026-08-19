@@ -469,13 +469,15 @@ export const useBuilder = create((set, get) => ({
     try {
       const d = JSON.parse(localStorage.getItem(KEY) || '{}')
       if (!d.site) return false
+      // Data wapas le aao, par step 'landing' hi rahega.
+      // Refresh pe hamesha front page khulta hai — wahan se "Continue"
+      // dabao to builder khulega, ya naya banao.
       set({
         business: { ...emptyBusiness, ...(d.business || {}) },
         site: d.site,
         templateId: d.templateId || null,
         projectId: d.projectId || null,
         currentPageId: d.currentPageId || d.site?.pages?.[0]?.id || null,
-        step: 'builder',
         selectedId: null,
         selectedPath: null,
         past: [],
@@ -485,6 +487,11 @@ export const useBuilder = create((set, get) => ({
     } catch (e) {
       return false
     }
+  },
+
+  /** landing se "Continue editing" — wahi project wapas kholo */
+  continueProject() {
+    if (get().site) set({ step: 'builder', selectedId: null, selectedPath: null })
   },
 
   async initServer() {
@@ -510,13 +517,13 @@ export const useBuilder = create((set, get) => ({
       try {
         const doc = await api.sites.get(saved.projectId)
         if (doc?.site) {
+          // sirf data — step landing hi rahega (front page se shuruaat)
           set({
             projectId: doc.id,
             business: { ...emptyBusiness, ...doc.business },
             site: doc.site,
             templateId: doc.templateId,
             currentPageId: doc.site?.pages?.[0]?.id || null,
-            step: 'builder',
             syncState: 'saved',
             lastSavedAt: doc.updatedAt,
           })
