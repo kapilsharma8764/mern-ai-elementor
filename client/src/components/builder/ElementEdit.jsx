@@ -280,13 +280,13 @@ export default function ElementLayer({ block, frameRef, active, dragHandle }) {
 
   return (
     <>
-      {/* pointer capture layer for hover + click */}
-      {/* Poora section drag ho sake — dnd-kit 4px ke baad hi drag maanta hai,
-          isliye chhota click "select" hi rehta hai. */}
+      {/* Sirf click / hover / inline-edit ke liye.
+          Drag ke listeners yahan NAHI hain — dnd-kit drag ke baad click ko
+          nigal jata tha, isliye section ke andar kuch select hi nahi hota tha.
+          Drag ab alag strip aur toolbar grip se hota hai (Canvas.jsx). */}
       <div
         ref={overlayRef}
-        {...(editing ? {} : dragHandle || {})}
-        className={`absolute inset-0 z-[15] ${dragHandle && !editing ? 'cursor-grab active:cursor-grabbing' : ''}`}
+        className="absolute inset-0 z-[15]"
         style={{ pointerEvents: editing ? 'none' : 'auto' }}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {

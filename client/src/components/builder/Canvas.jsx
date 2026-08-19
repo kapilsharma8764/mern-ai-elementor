@@ -68,12 +68,18 @@ function BlockFrame({ block, index, total, theme, business }) {
       ) : (
         <>
           <BlockView block={block} theme={theme} business={business} />
-          <ElementLayer
-            block={block}
-            frameRef={frameRef}
-            active={!isDragging && !block.style.hidden}
-            dragHandle={{ ...listeners, ...attributes }}
-          />
+          <ElementLayer block={block} frameRef={frameRef} active={!isDragging && !block.style.hidden} />
+
+          {/* Drag strip — section ke baayin kinare pe, hover pe dikhta hai.
+              Alag rakha hai taaki andar ka content click karke select ho sake. */}
+          <div
+            {...listeners}
+            {...attributes}
+            title="Section ko yahan se pakad ke upar-neeche karo"
+            className="absolute inset-y-0 left-0 z-20 flex w-6 cursor-grab items-center justify-center opacity-0 transition group-hover:opacity-100 active:cursor-grabbing"
+          >
+            <span className="flex h-16 w-1.5 items-center justify-center rounded-full bg-brand-500/70 shadow-soft" />
+          </div>
         </>
       )}
     </div>
@@ -83,8 +89,10 @@ function BlockFrame({ block, index, total, theme, business }) {
 function StaticFrame({ id, block, theme, business, label }) {
   const selectedId = useBuilder((s) => s.selectedId)
   const select = useBuilder((s) => s.select)
+  const setStyle = useBuilder((s) => s.setStyle)
   const selected = selectedId === id
   const frameRef = useRef(null)
+  const hidden = !!block.style?.hidden
   return (
     <div ref={frameRef} className="group relative" data-block={id} onClick={(e) => { e.stopPropagation(); select(id) }}>
       <div className={`pointer-events-none absolute inset-0 z-10 ring-inset transition ${
@@ -101,9 +109,24 @@ function StaticFrame({ id, block, theme, business, label }) {
         >
           <Pencil size={12} /> Edit
         </button>
+        <button
+          className="rounded p-1 text-slate-400 hover:bg-white/10 hover:text-white"
+          onClick={(e) => { e.stopPropagation(); setStyle(id, 'hidden', !hidden) }}
+          title={hidden ? `${label} wapas dikhao` : `${label} hatao (kabhi bhi wapas la sakte ho)`}
+        >
+          {hidden ? <EyeOff size={13} /> : <Eye size={13} />}
+        </button>
       </div>
-      <BlockView block={block} theme={theme} business={business} />
-      <ElementLayer block={{ ...block, id }} frameRef={frameRef} active />
+      {hidden ? (
+        <div className="flex items-center justify-center gap-2 border border-dashed border-white/15 bg-white/[0.02] py-6 text-xs text-slate-500">
+          <EyeOff size={14} /> {label} hataya hua hai — wapas laane ke liye aankh dabao
+        </div>
+      ) : (
+        <>
+          <BlockView block={block} theme={theme} business={business} />
+          <ElementLayer block={{ ...block, id }} frameRef={frameRef} active />
+        </>
+      )}
     </div>
   )
 }

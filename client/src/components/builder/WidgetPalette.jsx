@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useDraggable } from '@dnd-kit/core'
 import { widgetGroups } from '../../sections/widgets'
 import { useBuilder } from '../../store/useBuilder'
+import StructurePanel from './StructurePanel'
 import {
-  GripVertical, Plus, Search, ChevronDown,
+  GripVertical, Plus, Search, ChevronDown, Layers, LayoutGrid as GridIcon,
   PanelTop, PanelBottom, Sparkles, LayoutGrid, Rows3, Blocks, Quote, Star,
   Image as ImageIcon, Images, Video, Phone, MapPin, Type, AlignLeft, MousePointerClick,
   Minus, BarChart3, Users, Tag, HelpCircle, Mail, Megaphone, ListOrdered, Trophy, Hash, Boxes,
@@ -53,6 +54,7 @@ function PaletteItem({ w }) {
 }
 
 export default function WidgetPalette() {
+  const [tab, setTab] = useState('structure')   // structure | widgets
   const [q, setQ] = useState('')
   const [closed, setClosed] = useState({})
   const groups = widgetGroups()
@@ -61,7 +63,28 @@ export default function WidgetPalette() {
   const total = Object.values(groups).reduce((a, g) => a + g.length, 0)
 
   return (
-    <aside className="flex h-full w-[248px] shrink-0 flex-col overflow-hidden border-r border-white/10 bg-panel">
+    <aside className="flex h-full w-[264px] shrink-0 flex-col overflow-hidden border-r border-white/10 bg-panel">
+      {/* do tabs — website ka dhaancha, aur widgets */}
+      <div className="flex shrink-0 border-b border-white/10">
+        {[['structure', 'Pages', Layers], ['widgets', 'Widgets', GridIcon]].map(([k, label, Icon]) => (
+          <button
+            key={k}
+            onClick={() => setTab(k)}
+            className={`flex flex-1 items-center justify-center gap-1.5 py-2.5 text-[11px] font-bold uppercase tracking-wider transition ${
+              tab === k ? 'border-b-2 border-brand-500 text-white' : 'text-slate-500 hover:text-slate-300'
+            }`}
+          >
+            <Icon size={13} /> {label}
+          </button>
+        ))}
+      </div>
+
+      {tab === 'structure' ? (
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-3 pb-16">
+          <StructurePanel />
+        </div>
+      ) : (
+      <>
       <div className="shrink-0 border-b border-white/10 p-3">
         <div className="mb-2 flex items-baseline justify-between">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">Widgets</span>
@@ -104,6 +127,8 @@ export default function WidgetPalette() {
           <p className="py-8 text-center text-[11px] text-slate-500">Koi widget nahi mila.</p>
         ) : null}
       </div>
+      </>
+      )}
     </aside>
   )
 }

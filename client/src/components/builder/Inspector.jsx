@@ -6,7 +6,7 @@ import { useTemplates } from '../../data/useTemplates'
 import { LINK_KINDS, sectionAnchor } from '../../sections/links'
 import { useImageUpload } from '../../utils/useImageUpload'
 import { usedFields, variantsUsing } from '../../sections/usedFields'
-import { EyeOff, Wand2 } from 'lucide-react'
+import { EyeOff, Wand2, Image as ImageIcon } from 'lucide-react'
 import { Trash2, Plus, ChevronUp, ChevronDown, Upload, X, RotateCcw, Layers, Palette as PaletteIcon, SlidersHorizontal } from 'lucide-react'
 
 /* --------------------------- field widgets --------------------------- */
@@ -165,6 +165,95 @@ const Slider = ({ value, onChange, min = 0, max = 200, step = 1, suffix = 'px' }
     <span className="w-12 text-right text-[11px] tabular-nums text-slate-400">{value ?? 0}{suffix}</span>
   </div>
 )
+
+/* ---------------- brand panel — header/footer ke liye ---------------- */
+/* Logo, company name aur logo style ab builder me hi badal sakte ho —
+   wizard pe wapas jaane ki zaroorat nahi. */
+function BrandPanel() {
+  const business = useBuilder((s) => s.business)
+  const setBusiness = useBuilder((s) => s.setBusiness)
+  const save = useBuilder((s) => s.save)
+  const { uploadImage, busy, progress, error } = useImageUpload()
+
+  const set = (k, v) => { setBusiness({ [k]: v }); save() }
+  const ls = business.logoStyle || {}
+  const setLS = (k, v) => set('logoStyle', { ...ls, [k]: v })
+
+  const pickFile = async (file) => {
+    const url = await uploadImage(file)
+    if (url) set('logo', url)
+  }
+
+  const Seg = ({ options, value, onChange }) => (
+    <div className="flex gap-1">
+      {options.map((o) => (
+        <button
+          key={o.id}
+          onClick={() => onChange(o.id)}
+          className={`flex-1 rounded-md border px-2 py-1.5 text-[11px] font-medium transition ${
+            value === o.id ? 'border-brand-400 bg-brand-500/15 text-white' : 'border-white/10 bg-white/[0.03] text-slate-300 hover:border-white/25'
+          }`}
+        >{o.label}</button>
+      ))}
+    </div>
+  )
+
+  return (
+    <div className="mb-4 rounded-lg border border-brand-400/25 bg-brand-500/[0.06] p-3">
+      <div className="mb-2.5 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-brand-200">
+        <ImageIcon size={12} /> Brand — poori site me lagega
+      </div>
+
+      <div className="grid gap-3">
+        <div>
+          <div className="label !mb-1">Company name</div>
+          <input className="field !py-1.5 text-[13px]" value={business.name || ''} onChange={(e) => set('name', e.target.value)} />
+        </div>
+
+        <div>
+          <div className="label !mb-1">Logo</div>
+          <div className="flex items-center gap-2">
+            <div className="grid h-11 w-16 shrink-0 place-items-center overflow-hidden rounded-md border border-white/10 bg-white/5">
+              {business.logo
+                ? <img src={business.logo} alt="" className="h-full w-full object-contain p-1" />
+                : <Upload size={13} className="text-slate-500" />}
+            </div>
+            <button className="btn-ghost !py-1.5 !text-[11px] disabled:opacity-50" disabled={busy}
+              onClick={() => document.getElementById('brand-logo-input')?.click()}>
+              {busy ? `${progress}%` : business.logo ? 'Badlo' : 'Upload'}
+            </button>
+            {business.logo ? (
+              <button className="rounded p-1 text-slate-400 hover:text-rose-300" onClick={() => set('logo', '')}><X size={14} /></button>
+            ) : null}
+            <input id="brand-logo-input" type="file" accept="image/*" hidden onChange={(e) => pickFile(e.target.files?.[0])} />
+          </div>
+          {error ? <p className="mt-1 text-[10px] text-amber-400/90">{error}</p> : null}
+        </div>
+
+        <div>
+          <div className="label !mb-1">Kaise dikhe</div>
+          <Seg
+            options={[{ id: 'logoName', label: 'Logo + Name' }, { id: 'logo', label: 'Logo' }, { id: 'name', label: 'Name' }]}
+            value={ls.mode || 'logoName'} onChange={(v) => setLS('mode', v)}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-2">
+          <div>
+            <div className="label !mb-1">Shape</div>
+            <Seg options={[{ id: 'square', label: 'Sq' }, { id: 'rounded', label: 'Rnd' }, { id: 'round', label: 'Circle' }]}
+              value={ls.shape || 'rounded'} onChange={(v) => setLS('shape', v)} />
+          </div>
+          <div>
+            <div className="label !mb-1">Size</div>
+            <Seg options={[{ id: 'sm', label: 'S' }, { id: 'md', label: 'M' }, { id: 'lg', label: 'L' }]}
+              value={ls.size || 'md'} onChange={(v) => setLS('size', v)} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 /* --------------------------- site theme panel --------------------------- */
 function ThemePanel() {
@@ -332,6 +421,7 @@ export default function Inspector() {
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-3.5 pb-20">
         {tab === 'content' ? (
           <div className="grid gap-3.5">
+            {(selectedId === 'header' || selectedId === 'footer') ? <BrandPanel /> : null}
             {(w.schema || []).map((f) => {
               const isActive = activeKey === f.key
               const shown = used.has(f.key)
